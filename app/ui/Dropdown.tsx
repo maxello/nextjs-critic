@@ -1,13 +1,13 @@
 import React from 'react';
 import { MenuItem, MenuItems } from '@headlessui/react';
-import { ThemeModeProp, ThemeProps } from '@/app/lib/definitions';
+import { ThemeProps } from '@/app/lib/definitions';
 
 export default function Dropdown({
   items,
   onChangeTheme
 }: {
   items: ThemeProps[];
-  onChangeTheme: (arg0: ThemeModeProp) => void;
+  onChangeTheme: (arg0: ThemeProps["mode"]) => void;
 }) {
   return (
       <MenuItems

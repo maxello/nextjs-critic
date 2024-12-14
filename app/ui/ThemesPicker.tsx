@@ -4,17 +4,19 @@ import { useTheme } from 'next-themes';
 import Dropdown from './Dropdown';
 import { SunIcon, MoonIcon, ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import { Menu, MenuButton } from '@headlessui/react';
-import { ThemeProps, ThemeModeProp } from '@/app/lib/definitions';
+import { ThemeProps } from '@/app/lib/definitions';
 
 export default function ThemesPicker() {
   const { theme, setTheme } = useTheme();
-
-  const getIcon = (mode: ThemeModeProp, cls: string) => {
+  
+  const getIcon = (mode: ThemeProps["mode"], cls: string) => {
     switch (mode) {
       case "light":
         return <SunIcon aria-hidden="true" className={cls} />
       case "dark":
         return <MoonIcon aria-hidden="true" className={cls} />
+      // case "system":
+      //   return <ComputerDesktopIcon aria-hidden="true" className={cls} />
       default:
         return <ComputerDesktopIcon aria-hidden="true" className={cls} />
     }
@@ -26,8 +28,10 @@ export default function ThemesPicker() {
     {mode: "system", label: "System", icon: getIcon("system", "size-6")}
   ];
 
-  const handleTheme = (mode: ThemeModeProp) => {
-    setTheme(mode);
+  const handleTheme = (mode: ThemeProps["mode"]) => {
+    if (mode) {
+      setTheme(mode);
+    }
   }
 
   return (
