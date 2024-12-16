@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen justify-between bg-gray-50 dark:bg-slate-800`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen justify-between`}
       >
         <ThemeProvider
             attribute="class"
@@ -37,7 +37,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <main className="mb-auto">
+            <main className="mb-auto mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
               {children}
             </main>
             <Footer />

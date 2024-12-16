@@ -1,22 +1,23 @@
-import Image from 'next/image';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { Bars3Icon, ChatBubbleLeftEllipsisIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, ChatBubbleLeftEllipsisIcon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import ThemesPicker from './ThemesPicker';
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-]
+import NavLink from './NavLink';
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+type NavigationProps = {
+  name: string;
+  href: string;
+  current: boolean;
 }
+
+const navigation: NavigationProps[] = [
+  { name: 'Home', href: '/', current: false },
+  { name: 'Movies', href: '/movies', current: false }
+]
 
 export default function Navbar() {
   return (
-    <Disclosure as="nav" className="bg-white/95 dark:bg-transparent sticky top-0 z-10 border-b dark:border-b-slate-600">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <Disclosure as="nav" className="bg-white/95 dark:bg-slate-800/95 sticky top-0 z-10 border-b dark:border-b-slate-600">
+      <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
@@ -35,17 +36,7 @@ export default function Navbar() {
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current ? 'bg-sky-600 dark:bg-slate-900 text-white dark:text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 dark:hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium',
-                    )}
-                  >
-                    {item.name}
-                  </a>
+                  <NavLink key={item.name} link={item} />
                 ))}
               </div>
             </div>
@@ -57,26 +48,20 @@ export default function Navbar() {
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <div>
-                <MenuButton className="relative flex rounded-full bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-800">
+                <MenuButton className="relative flex rounded-full p-1 text-sky-600 dark:text-sky-400 text-sm focus:outline-none">
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
-                  <Image
-                    width={44}
-                    height={44}
-                    alt=""
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    className="size-8 rounded-full"
-                  />
+                  <UserCircleIcon aria-hidden="true" className="size-6" />
                 </MenuButton>
               </div>
               <MenuItems
                 transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-slate-50 dark:bg-slate-900 py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <MenuItem>
                   <a
                     href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 data-[focus]:bg-slate-100 data-[focus]:outline-none"
+                    className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-50 data-[focus]:bg-slate-100 dark:data-[focus]:bg-slate-700 data-[focus]:outline-none"
                   >
                     Your Profile
                   </a>
@@ -84,7 +69,7 @@ export default function Navbar() {
                 <MenuItem>
                   <a
                     href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 data-[focus]:bg-slate-100 data-[focus]:outline-none"
+                    className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-50 data-[focus]:bg-slate-100 dark:data-[focus]:bg-slate-700 data-[focus]:outline-none"
                   >
                     Settings
                   </a>
@@ -92,7 +77,7 @@ export default function Navbar() {
                 <MenuItem>
                   <a
                     href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 data-[focus]:bg-slate-100 data-[focus]:outline-none"
+                    className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-50 data-[focus]:bg-slate-100 dark:data-[focus]:bg-slate-700 data-[focus]:outline-none"
                   >
                     Sign out
                   </a>
@@ -106,18 +91,9 @@ export default function Navbar() {
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pb-3 pt-2">
           {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.href}
-              aria-current={item.current ? 'page' : undefined}
-              className={classNames(
-                item.current ? 'bg-slate-900 text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium',
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
+            <div key={item.name} className="flex flex-col text-center">
+              <NavLink link={item} />
+            </div>
           ))}
         </div>
       </DisclosurePanel>
