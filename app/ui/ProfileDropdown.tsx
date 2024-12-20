@@ -39,9 +39,10 @@ export default async function ProfileDropdown() {
               'use server';
               await signOut({ redirectTo: "/" });
             }}
+            className=""
           >
             <button
-              className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-50 data-[focus]:bg-slate-100 dark:data-[focus]:bg-slate-700 data-[focus]:outline-none"
+              className="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-50 hover:bg-slate-100 dark:hover:bg-slate-700 data-[focus]:outline-none"
             >
               Sign out
             </button>
