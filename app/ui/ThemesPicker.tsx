@@ -1,49 +1,39 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import Dropdown from './Dropdown';
-import { SunIcon, MoonIcon, ComputerDesktopIcon } from '@heroicons/react/24/outline';
-import { Menu, MenuButton } from '@headlessui/react';
+import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 import { ThemeProps } from '@/app/lib/definitions';
 
 export default function ThemesPicker() {
-  const { theme, setTheme } = useTheme();
-  
+  const { theme, setTheme, systemTheme } = useTheme();
+
+  useEffect(() => {
+    if (systemTheme && theme === 'system') {
+      setTheme(systemTheme);
+    }
+  }, [theme, systemTheme, setTheme]);
+
   const getIcon = (mode: ThemeProps["mode"], cls: string) => {
-    switch (mode) {
-      case "light":
-        return <SunIcon aria-hidden="true" className={cls} />
-      case "dark":
-        return <MoonIcon aria-hidden="true" className={cls} />
-      // case "system":
-      //   return <ComputerDesktopIcon aria-hidden="true" className={cls} />
-      default:
-        return <ComputerDesktopIcon aria-hidden="true" className={cls} />
+    if (mode === "light") {
+      return <MoonIcon aria-hidden="true" className={cls} />
+    } else {
+      return <SunIcon aria-hidden="true" className={cls} />
     }
   }
 
-  const dropdown: ThemeProps[] = [
-    {mode: "light", label: "Light", icon: getIcon("light", "size-6")},
-    {mode: "dark", label: "Dark", icon: getIcon("dark", "size-6")},
-    {mode: "system", label: "System", icon: getIcon("system", "size-6")}
-  ];
-
-  const handleTheme = (mode: ThemeProps["mode"]) => {
-    if (mode) {
-      setTheme(mode);
+  const toggleTheme = () => {
+    if (theme) {
+      setTheme(theme === 'light' ? 'dark' : 'light');
     }
   }
 
   return (
-    <Menu as="div" className="relative ml-3">
-      <div>
-        <MenuButton className="relative flex rounded-full p-1 text-sky-600 dark:text-sky-400 text-sm focus:outline-none">
-          <span className="absolute -inset-1.5" />
-          <span className="sr-only">Open user menu</span>
-          {getIcon(theme, "size-6")}
-        </MenuButton>
-      </div>
-    <Dropdown items={dropdown} onChangeTheme={handleTheme} />
-    </Menu>
+    <button 
+      aria-label={`Use ${theme === 'light' ? 'dark' : 'light'} mode`}
+      className="relative flex rounded-full p-1 text-sky-600 dark:text-sky-400 text-sm focus:outline-none"
+      onClick={toggleTheme}
+    >
+      {getIcon(theme, "size-6")}
+    </button>
   )
 }

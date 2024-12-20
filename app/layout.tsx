@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from 'next/font/google'
 import "./globals.css";
 import { ThemeProvider } from "./providers/theme-provider";
 import Footer from "./ui/Footer";
 import Navbar from "./ui/Navbar";
+import { Toaster } from "react-hot-toast";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen justify-between`}
+        className={`${inter.className} antialiased flex flex-col h-screen justify-between`}
       >
         <ThemeProvider
             attribute="class"
@@ -36,8 +30,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Toaster position="bottom-right" />
             <Navbar />
-            <main className="mb-auto mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <main className="flex-1">
               {children}
             </main>
             <Footer />

@@ -1,7 +1,7 @@
 "use client";
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
-import { LinkProp } from '@/app/lib/definitions';
+import { NavigationProps } from '@/app/lib/definitions';
 import { useClose } from '@headlessui/react';
 
 function classNames(...classes: string[]) {
@@ -11,7 +11,7 @@ function classNames(...classes: string[]) {
 export default function NavLink({
   link
 }: {
-  link: LinkProp
+  link: NavigationProps
 }) {
   const pathname = usePathname();
   const close = useClose();

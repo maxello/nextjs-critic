@@ -51,15 +51,19 @@ const customers = [
 const movies = [
   {
     id: "3fb3faa4-c54e-4fc6-9654-eac035e9a982",
-    title: "The Prestige",
-    director: "Christopher Nolan",
-    description: "Christopher Nolan directs this mysterious story of two magicians whose intense rivalry leads them on a life-long battle for supremacy full of obsession, deceit and jealousy with dangerous and deadly consequences. (Touchstone Pictures)"
+    title: "The Substance",
+    director: "Coralie Fargeat",
+    thumbnail: "/public/movies/substance.webp",
+    images: [],
+    description: "Have you ever dreamt of a better version of yourself? You. Only better in every way. You've got to try this new product. It changed my life."
   },
   {
     id: "c41d7385-aeeb-4dce-ad8e-e2ee06a78bbd",
-    title: "The Brutalist",
-    director: "Brady Corbet",
-    description: "Escaping post-war Europe, visionary architect László Toth (Adrien Brody) arrives in America to rebuild his life, his work, and his marriage to his wife Erzsébet (Felicity Jones) after being forced apart during wartime by shifting borders and regimes. On his own in a strange new country, László settles in Pennsylvania, where the wealthy and prominent industrialist Harrison Lee Van Buren (Guy Pearce) recognizes his talent for building. But power and legacy come at a heavy cost."
+    title: "Home Alone",
+    director: "Chris Columbus",
+    thumbnail: "/public/movies/home-alone.webp",
+    images: [],
+    description: "Eight-year-old Kevin McCallister has become the man of the house, overnight! Accidentally left behind when his family rushes off on a Christmas vacation, Kevin gets busy decorating the house for the holidays. But he's not decking the halls with tinsel and holly. Two bumbling burglars are trying to break in, and Kevin's rigging a bewildering battery of booby traps to welcome them!"
   },
 ]
 

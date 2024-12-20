@@ -1,20 +1,22 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { Bars3Icon, ChatBubbleLeftEllipsisIcon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { Bars3Icon, ChatBubbleLeftEllipsisIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import ThemesPicker from './ThemesPicker';
 import NavLink from './NavLink';
+import Link from 'next/link';
+import ProfileDropdown from './ProfileDropdown';
+import { auth } from "@/app/auth";
+import { NavigationProps } from '@/app/lib/definitions';
 
-type NavigationProps = {
-  name: string;
-  href: string;
-  current: boolean;
-}
-
-const navigation: NavigationProps[] = [
-  { name: 'Home', href: '/', current: false },
-  { name: 'Movies', href: '/movies', current: false }
-]
-
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await auth();
+  const navigation: NavigationProps[] = [
+    { name: 'Home', href: '/', current: false },
+    { name: 'Movies', href: '/movies', current: false },
+    { name: 'Games', href: '/games', current: false },
+  ]
+  if (session?.user?.role === "ADMIN") {
+    navigation.push({ name: 'Dashboard', href: '/dashboard', current: false });
+  }
   return (
     <Disclosure as="nav" className="bg-white/95 dark:bg-slate-800/95 sticky top-0 z-10 border-b dark:border-b-slate-600">
       <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8">
@@ -45,45 +47,11 @@ export default function Navbar() {
           
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <ThemesPicker />
-            {/* Profile dropdown */}
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <MenuButton className="relative flex rounded-full p-1 text-sky-600 dark:text-sky-400 text-sm focus:outline-none">
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
-                  <UserCircleIcon aria-hidden="true" className="size-6" />
-                </MenuButton>
-              </div>
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-slate-50 dark:bg-slate-900 py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-              >
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-50 data-[focus]:bg-slate-100 dark:data-[focus]:bg-slate-700 data-[focus]:outline-none"
-                  >
-                    Your Profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-50 data-[focus]:bg-slate-100 dark:data-[focus]:bg-slate-700 data-[focus]:outline-none"
-                  >
-                    Settings
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-50 data-[focus]:bg-slate-100 dark:data-[focus]:bg-slate-700 data-[focus]:outline-none"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
-              </MenuItems>
-            </Menu>
+            {session ? (
+              <ProfileDropdown />
+            ) : (
+              <Link href="/login" className="ml-3 transition-colors text-sky-600 dark:text-sky-400 hover:text-sky-500 hover:dark:text-sky-300 rounded-md text-sm font-medium">Login</Link>
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,17 @@
-import React from 'react'
+import Movie from '@/app/ui/movies/Movie';
+import React, { Suspense } from 'react'
 
-export default function Movie() {
+export default async function MoviePage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params;
   return (
-    <div>The Prestige</div>
+    <div className="py-6">
+      <Suspense fallback={<div>Loading...</div>}>
+        <Movie id={id} />
+      </Suspense>
+    </div>
   )
 }
