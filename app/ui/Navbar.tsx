@@ -4,7 +4,7 @@ import ThemesPicker from './ThemesPicker';
 import NavLink from './NavLink';
 import Link from 'next/link';
 import ProfileDropdown from './ProfileDropdown';
-import { auth } from "@/app/auth";
+import { auth } from "@/auth";
 import { NavigationProps } from '@/app/lib/definitions';
 
 export default async function Navbar() {
@@ -18,7 +18,7 @@ export default async function Navbar() {
     navigation.push({ name: 'Dashboard', href: '/dashboard', current: false });
   }
   return (
-    <Disclosure as="nav" className="bg-white/95 dark:bg-slate-800/95 sticky top-0 z-10 border-b dark:border-b-slate-600">
+    <Disclosure as="nav" className="bg-accent-primary bg-opacity-90 sticky top-0 z-10 border-b border-bdr-primary">
       <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -31,7 +31,7 @@ export default async function Navbar() {
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
-            <div className="flex shrink-0 items-center text-sky-600 dark:text-sky-400">
+            <div className="flex shrink-0 items-center text-primary">
               <ChatBubbleLeftEllipsisIcon aria-hidden="true" className="size-8 mr-2" />
               <span className="font-bold tracking-wide text-lg">CR<span className="text-slate-700 dark:text-white">i</span>T<span className="text-slate-700 dark:text-white">i</span>C</span>
             </div>

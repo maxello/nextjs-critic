@@ -9,8 +9,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        bkg: "var(--background)",
+        frg: "var(--foreground)",
+        ["accent-primary"]: "rgba(var(--accent-primary), <alpha-value>)",
+        ["bdr-primary"]: "rgb(var(--bdr-primary))",
+        accent1: "var(--accent1)",
+        primary: "var(--primary)",
       },
     },
   },

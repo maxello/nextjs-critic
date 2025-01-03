@@ -5,20 +5,33 @@
 :root {
   --background: #f9fafb;
   --foreground: #1f2937;
+  --primary: #0284c7;
+  --accent-primary: 255, 255, 255;
+  --bdr-primary: 229 231 235;
+  --accent1: #64748b;
 }
 
 html.dark {
   --background: #334155;
   --foreground: #ffffff;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  --primary: #38bdf8;
+  --accent-primary: 30, 41, 59;
+  --bdr-primary: 71 85 105;
+  --accent1: #94a3b8;
 }
 
 .sub-menu {
   overflow: hidden;
   transition: height 300ms;
+}
+
+.shimmering-loader {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    hsl(var(--border-default)) 4%,
+    hsl(var(--background-surface-200)) 25%,
+    hsl(var(--border-default)) 36%
+  );
+  background-size: 1000px 100%;
 }

@@ -38,7 +38,7 @@ export type UserProps = {
   name: string;
   email: string;
   password: string;
-  role: string | undefined | null;
+  role: string;
 };
 
 // The database returns a number for amount, but we later format it to a string with the formatCurrency function

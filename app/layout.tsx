@@ -22,7 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased flex flex-col h-screen justify-between`}
+        className={`
+          ${inter.className} 
+          antialiased 
+          flex 
+          flex-col 
+          h-screen 
+          justify-between
+          bg-bkg
+          text-frg
+        `}
       >
         <ThemeProvider
             attribute="class"

@@ -37,7 +37,7 @@ export async function fetchFilteredMovies(
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   console.log('Fetching products data...');
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const moviesResponse = await sql<MovieProps>`
     SELECT *

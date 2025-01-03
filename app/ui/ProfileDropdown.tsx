@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { signOut } from "@/app/auth";
+import { signOut } from "@/auth";
 export default async function ProfileDropdown() {
 
   return (
@@ -39,7 +39,6 @@ export default async function ProfileDropdown() {
               'use server';
               await signOut({ redirectTo: "/" });
             }}
-            className=""
           >
             <button
               className="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-50 hover:bg-slate-100 dark:hover:bg-slate-700 data-[focus]:outline-none"
