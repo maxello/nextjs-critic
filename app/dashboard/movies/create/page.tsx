@@ -1,4 +1,4 @@
-import Breadcrumbs from '@/app/ui/Breadcrumbs'
+import Breadcrumbs from '@/components/Breadcrumbs'
 import React from 'react'
 
 export default function CreateMoviePage() {

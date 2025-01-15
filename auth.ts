@@ -1,77 +1,63 @@
-import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import type { UserProps } from '@/app/lib/definitions';
-import { sql } from '@vercel/postgres';
-import bcrypt from 'bcryptjs';
-import { z } from 'zod';
+import NextAuth, { User } from "next-auth";
+import { compare } from "bcryptjs";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { db } from "@/database/drizzle";
+import { users } from "@/database/schema";
+import { eq } from "drizzle-orm";
 
-async function getUser(email: string) {
-  try {
-    const user = await sql<UserProps>`SELECT * FROM users WHERE email=${email}`;
-    return user.rows[0];
-  } catch (error) {
-    console.error('Failed to fetch user:', error);
-    throw new Error('Failed to fetch user.');
-  }
-}
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: {
+    strategy: "jwt",
+  },
   providers: [
-    Credentials({
-      authorize: async (credentials: Partial<Record<string | number, unknown>>) => {
-        const parsedCredentials = z
-          .object({ email: z.string().email(), password: z.string().min(6) })
-          .safeParse(credentials);
- 
-        if (parsedCredentials.success) {
-          const { email, password } = parsedCredentials.data;
-          const user = await getUser(email);
-          if (!user) return null;
-          const passwordsMatch = await bcrypt.compare(password, user.password);
-          if (passwordsMatch) return user;
+    CredentialsProvider({
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
         }
- 
-        console.log('Invalid credentials');
-        return null;
+
+        const user = await db
+          .select()
+          .from(users)
+          .where(eq(users.email, credentials.email.toString()))
+          .limit(1);
+
+        if (user.length === 0) return null;
+
+        const isPasswordValid = await compare(
+          credentials.password.toString(),
+          user[0].password,
+        );
+
+        if (!isPasswordValid) return null;
+
+        return {
+          id: user[0].id.toString(),
+          email: user[0].email,
+          name: user[0].fullName,
+        } as User;
       },
     }),
   ],
-  pages: { signIn: "/login" },
-    callbacks: {
+  pages: {
+    signIn: "/sign-in",
+  },
+  callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        return {
-          ...token,
-          role: user.role
-        }
+        token.id = user.id;
+        token.name = user.name;
       }
+
       return token;
     },
     async session({ session, token }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          role: token.role,
-        },
-      }
-    },
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
-    async authorized({ auth, request: { nextUrl } }) {
-      const user = auth?.user;
-      const isLoggedIn = !!user;
-      const isOnLoginPage = nextUrl.pathname.startsWith("/login");
-
-      const isDashboardPage = nextUrl?.pathname.startsWith("/dashboard");
-
-      if (isDashboardPage && user?.role !== "ADMIN") {
-        return Response.redirect(new URL("/", nextUrl));
-      } else if (isLoggedIn && isOnLoginPage) {
-        return Response.redirect(new URL("/", nextUrl));
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.name = token.name as string;
       }
 
-      return true;
+      return session;
     },
   },
-})
+});

@@ -1,5 +1,4 @@
 import React from 'react';
-import Sidebar from '../ui/dashboard/Sidebar';
 export default function Dashboardlayout({
   children,
 }: Readonly<{
@@ -7,7 +6,6 @@ export default function Dashboardlayout({
 }>) {
   return (
     <div className="relative flex h-full">
-      <Sidebar />
       {children}
     </div>
   )

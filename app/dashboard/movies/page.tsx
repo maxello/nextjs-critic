@@ -1,8 +1,8 @@
-import { fetchMoviesPages } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/Breadcrumbs';
-import MoviesTable from '@/app/ui/movies/MoviesTable';
-import Pagination from '@/app/ui/Pagination';
-import Search from '@/app/ui/Search';
+import { fetchMoviesPages } from '@/lib/data';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import MoviesTable from '@/components/movies/MoviesTable';
+import Pagination from '@/components/Pagination';
+import Search from '@/components/Search';
 import React, { Suspense } from 'react';
 
 export default async function DashboardMoviesPage(props: {
