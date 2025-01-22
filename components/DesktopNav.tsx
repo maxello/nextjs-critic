@@ -3,7 +3,7 @@ import {
   NavigationMenu,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { NavigationProps } from '@/lib/definitions';
+import { NavigationProps } from '@/types/index';
 import NavLink from './NavLink';
 
 const NavMenu = ({items}: {items: NavigationProps[]}) => {
@@ -11,7 +11,7 @@ const NavMenu = ({items}: {items: NavigationProps[]}) => {
     <NavigationMenu>
       <NavigationMenuList>
         {items.map((item) => (
-          <NavLink key={item.name} item={item} />
+          <NavLink key={item.name} {...item} />
         ))}
       </NavigationMenuList>
     </NavigationMenu>

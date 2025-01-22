@@ -1,34 +1,51 @@
-import Link from 'next/link';
+'use client';
+
 import React from 'react';
 
-type BreadcrumbsProps = {
-  label: string;
-  href?: string;
-}
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {
+  House
+} from "lucide-react";
 
-export default function Breadcrumbs({
-  breadcrumbs
-}: {
-  breadcrumbs: BreadcrumbsProps[]
-}) {
+const Breadcrumbs = () => {
+  const paths = usePathname();
+  const pathNames = paths.split('/').filter(path => path);
   return (
-    <div className="flex items-center text-accent1 text-sm mb-6">
-      {breadcrumbs.map((item, ind) => (
-        <div key={item.label} className="flex items-center">
-          {item.href ? (
-            <Link href={item.href} className="hover:underline">{item.label}</Link>
-          ) : (
-            <span>{item.label}</span>
-          )}
-          {(ind !== breadcrumbs.length - 1) && (
-            <span>
-              <svg className="mx-1.5 h-4 w-4 leading-none text-accent1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          )}
-        </div>
-      ))}
+    <div className="flex items-center">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem className="hidden md:block">
+            <BreadcrumbLink className="text-primary" href="/">
+              <House size={16} />
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          {pathNames.length > 0 && <BreadcrumbSeparator className="hidden md:block" />}
+          {
+            pathNames.map((link, index) => {
+              const href = `/${pathNames.slice(0, index + 1).join('/')}`
+              return (
+                <React.Fragment key={index}>
+                  <li className="capitalize">
+                    {(index === pathNames.length - 1) ? <span>{link}</span> : <Link className="text-primary" href={href}>{link}</Link>}
+
+                  </li>
+                  {pathNames.length !== index + 1 && <BreadcrumbSeparator className="hidden md:block" />}
+                </React.Fragment>
+              )
+            })
+          }
+        </BreadcrumbList>
+      </Breadcrumb>
     </div>
   )
 }
+
+export default Breadcrumbs;

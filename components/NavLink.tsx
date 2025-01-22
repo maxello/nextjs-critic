@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import { NavigationProps } from '@/lib/definitions';
+// import { NavigationProps } from '@/types/index';
 
 import {
   NavigationMenuItem,
@@ -11,19 +11,21 @@ import {
 import Link from 'next/link';
 
 export default function NavLink({
-  item
+  href,
+  name
 }: {
-  item: NavigationProps
+  href: string,
+  name: string
 }) {
   const pathname = usePathname();
-	const isActive = item.href === pathname;
+	const isActive = href === pathname;
 
   return (
     <>
-      <NavigationMenuItem key={item.name}>
-        <Link href={item.href} legacyBehavior passHref>
+      <NavigationMenuItem>
+        <Link href={href} legacyBehavior passHref>
           <NavigationMenuLink className={`${navigationMenuTriggerStyle()}`} active={isActive}>
-            {item.name}
+            {name}
           </NavigationMenuLink>
         </Link>
       </NavigationMenuItem>

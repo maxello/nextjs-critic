@@ -1,85 +1,73 @@
-import { fetchFilteredMovies } from '@/lib/data';
-import { MovieProps } from '@/lib/definitions';
-import React from 'react'
-
+import { fetchFilteredMovies } from '@/lib/actions/movie';
+import { Movie } from '@/types';
+import React from 'react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Pencil, Trash2 } from "lucide-react"
+import {
+  Card,
+  CardContent
+} from "@/components/ui/card"
+import Link from 'next/link';
 export default async function MoviesTable({
   query, 
-  currentPage
+  currentPage,
+  itemsPerPage,
 }: {
   query: string;
   currentPage: number;
+  itemsPerPage: number;
 }): Promise<React.JSX.Element> {
-  const movies: MovieProps[] = await fetchFilteredMovies(query, currentPage);
-  console.log("MOVIES", movies);
+  const movies = await fetchFilteredMovies(query, currentPage, itemsPerPage) as Movie[];
   return (
-    <div
-        className="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
-      >
-        <table className="min-w-full leading-normal">
-          <thead>
-            <tr>
-              <th
-                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-              >
-                Movie
-              </th>
-              <th
-                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-              >
-                Year
-              </th>
-              <th
-                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-              >
-                Director
-              </th>
-              <th
-                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-              >
-                Edit
-              </th>
-              <th
-                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-              >
-                Delete
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+    <div>
+    <Card>
+      <CardContent>
+        <Table className="mt-6">
+          {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Year</TableHead>
+              <TableHead>Director</TableHead>
+              <TableHead className="text-right w-[60px]">Edit</TableHead>
+              <TableHead className="text-right w-[60px]">Delete</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {movies?.map((movie) => (
-              <tr key={movie.id}>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p className="text-gray-900 whitespace-no-wrap">{movie.title}</p>
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p className="text-gray-900 whitespace-no-wrap">{movie.releaseYear}</p>
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p className="text-gray-900 whitespace-no-wrap">{movie.director}</p>
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full">
-                  Edit
-                </button>
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                  Delete
-                </button>
-                </td>
-              </tr>
+              <TableRow key={movie.id}>
+                <TableCell className="font-medium">{movie.title}</TableCell>
+                <TableCell>{movie.releaseYear}</TableCell>
+                <TableCell>{movie.director}</TableCell>
+                <TableCell className="text-right">
+                  <Button asChild size="icon" variant="secondary">
+                    <Link href={`/admin/movies/${movie.id}/edit`} aria-label="Edit">
+                      <Pencil />
+                    </Link>
+                  </Button>
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button asChild size="icon" variant="destructive">
+                    <Link href={`/admin/movies/${movie.id}/delete`} aria-label="Delete">
+                      <Trash2 />
+                    </Link>
+                  </Button>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-        { !movies?.length && (
-        <div className="text-center p-2">
-          {query ? (
-            <span>No products found for your request.</span>
-          ) : (
-            <span>There are no movies.</span>
-          )}
-          </div>
-        )}
+          </TableBody>
+        </Table>
+        </CardContent>
+      </Card>
+        
         </div>
   )
 }

@@ -10,6 +10,7 @@ import { signIn } from "@/auth";
 // import { redirect } from "next/navigation";
 // import { workflowClient } from "@/lib/workflow";
 // import config from "@/lib/config";
+import { AuthCredentials } from '@/types/index';
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">,

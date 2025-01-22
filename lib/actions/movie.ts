@@ -1,39 +1,57 @@
-'use server';
+"use server";
+import { eq, ilike, desc } from "drizzle-orm";
+// import { revalidatePath } from "next/cache";
+import { db } from "@/database/drizzle";
+import { movies } from "@/database/schema";
+// import { redirect } from 'next/navigation';
 
-// import { signIn } from '@/auth';
-// import { AuthError } from 'next-auth';
-// import { sql } from '@vercel/postgres';
-import { z } from 'zod';
+export async function fetchMoviesPages(query: string, itemsPerPage: number) {
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  try {
+    const count = await db.$count(movies);
+    const totalPages = Math.ceil(count / itemsPerPage);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of movies.');
+  }
+}
 
-const FormSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  director: z.string(),
-  description: z.string(),
-  images: z.array(z.string()),
-  thumbnail: z.string(),
-  created_at: z.string(),
-  genre: z.array(z.string()),
-  releaseYear: z.string(),
-});
- 
-const CreateMovie = FormSchema.omit({ id: true, created_at: true });
+export async function fetchFilteredMovies(
+  query: string,
+  currentPage: number,
+  itemsPerPage: number,
+) {
+  const offset = (currentPage - 1) * itemsPerPage;
+  console.log('Fetching products data...');
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  try {
+    const moviesResponse = await db
+      .select()
+      .from(movies)
+      .where(ilike(movies.title, `%${query}%`))
+      .orderBy(desc(movies.title))
+      .limit(itemsPerPage)
+      .offset(offset);
+      console.log("moviesResponse", moviesResponse);
+    return moviesResponse;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch movies.');
+  }
+}
 
-export async function createMovie(formData: FormData) {
-  console.log(formData, CreateMovie);
-  // const { title, director, description, images, thumbnail, genre, releaseYear } = CreateMovie.parse({
-  //   title: formData.get('title'),
-  //   director: formData.get('director'),
-  //   description: formData.get('description'),
-  //   images: formData.get('images'),
-  //   thumbnail: formData.get('thumbnail'),
-  //   releaseYear: formData.get('releaseYear'),
-  //   genre: formData.get('genre'),
-  // });
-  // await sql`
-  //   INSERT INTO movies (title, director, description, images, thumbnail, genre, releaseYear)
-  //   VALUES (${title}, ${director}, ${description}, ${images}, ${thumbnail}, ${genre}, ${releaseYear})
-  // `;
-  // revalidatePath('/dashboard/movies');
-  // redirect('/dashboard/movies');
+export async function fetchMovieById(
+  id: string
+) {
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  try {
+    const movieResponse = await db
+      .select().from(movies).where(eq(movies.id, id));
+    return movieResponse[0];
+  } catch (error) {
+    // redirect('/admin/movies');
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch movie.');
+  }
 }

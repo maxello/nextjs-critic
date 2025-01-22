@@ -1,21 +1,17 @@
-import { MovieProps } from '@/lib/definitions'
+// import { MovieProps } from '@/types/index'
 import React from 'react'
-import Image from "next/image";
-export default function MovieDetails({
-  movie
-}: {
-  movie: MovieProps
-}) {
+// import Image from "next/image";
+export default function MovieDetails() {
   return (
     <div className="mb-6">
-      <h2 className="text-4xl font-bold uppercase mb-6">{movie.title}</h2>
+      {/* <h2 className="text-4xl font-bold uppercase mb-6">{movie.title}</h2>
       <Image
         alt={movie.title}
         src={movie.thumbnail}
         width={200}
         height={300}
         className="aspect-[2/3] object-contain"
-      />
+      /> */}
     </div>
   )
 }

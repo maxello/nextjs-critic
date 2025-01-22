@@ -2,18 +2,12 @@ import ThemesPicker from './ThemesPicker';
 import Link from 'next/link';
 import ProfileDropdown from './ProfileDropdown';
 import { auth } from "@/auth";
-import { NavigationProps } from '@/lib/definitions';
+import { NavigationProps } from '@/types/index';
 import { Button } from "@/components/ui/button";
-import { MessageCircleMore, Menu } from "lucide-react";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import NavMenu from './NavMenu';
+import { MessageCircleMore } from "lucide-react";
+
+import DesktopNav from './DesktopNav';
+import MobileNav from './MobileNav';
 
 export default async function Header() {
   const session = await auth();
@@ -26,7 +20,7 @@ export default async function Header() {
   //   navigation.push({ name: 'Dashboard', href: '/dashboard', current: false });
   // }
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/60 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-secondary/60 backdrop-blur" >
       <div className="root-container py-3">
         <div className="mx-auto max-w-6xl">
           <div className="flex justify-between items-center">
@@ -36,7 +30,7 @@ export default async function Header() {
             </div>
             <div className="items-center space-x-2 flex">
               <div className="hidden lg:flex">
-                <NavMenu items={navigation} />
+                <DesktopNav items={navigation} />
               </div>
               <ThemesPicker />
               {session ? (
@@ -46,29 +40,7 @@ export default async function Header() {
                   <Link href="/sign-in">Login</Link>
                 </Button>
               )}
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <Button variant="outline" size="icon" className="lg:hidden [&_svg]:size-[1.5rem] border-0 shadow-none transition-colors hover:text-primary focus-visible:outline-none">
-                    <span className="sr-only">Open mobile menu</span>
-                    <Menu />
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerHeader className="p-0">
-                    <DrawerTitle className="sr-only">Navigation</DrawerTitle>
-                  </DrawerHeader>
-                  <ul className="flex flex-col space-y-5 px-5 pt-5 pb-3 ">
-                      {navigation.map((item) => (
-                        <li key={item.name}>
-                          <DrawerClose asChild>
-                            <Link className="text-base" href={item.href}>{item.name}</Link>
-                          </DrawerClose>
-                        </li>
-                      ))}
-                    <li></li>
-                  </ul>
-                </DrawerContent>
-              </Drawer>
+              <MobileNav items={navigation} />
             </div>
           </div>
         </div>
