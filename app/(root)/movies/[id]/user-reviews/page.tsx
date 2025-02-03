@@ -1,5 +1,4 @@
-import React from 'react'
-import { Suspense } from 'react';
+import React from 'react';
 // import ReviewsList from '@/components/ReviewsList';
 
 export default async function UserReviewsPage({
@@ -11,10 +10,10 @@ export default async function UserReviewsPage({
   console.log("id", id);
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Suspense fallback={<div>Loading...</div>}>
         
-      </Suspense>
-      <div>User Reviews</div>
+      </Suspense> */}
+      {/* <div>User Reviews</div> */}
       {/* <Suspense fallback={<div>Loading...</div>}>
         <ReviewsList id={id} />
       </Suspense> */}

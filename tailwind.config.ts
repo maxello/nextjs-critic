@@ -16,7 +16,7 @@ export default {
   		colors: {
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
-  				admin: 'var(--primary)',
+  				// admin: 'var(--primary)',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			background: 'hsl(var(--background))',
@@ -44,6 +44,18 @@ export default {
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+				danger: {
+  				DEFAULT: 'hsl(var(--danger))',
+  				foreground: 'hsl(var(--danger-foreground))'
+  			},
+				success: {
+  				DEFAULT: 'hsl(var(--success))',
+  				foreground: 'hsl(var(--success-foreground))'
+  			},
+				warning: {
+  				DEFAULT: 'hsl(var(--warning))',
+  				foreground: 'hsl(var(--warning-foreground))'
   			},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',

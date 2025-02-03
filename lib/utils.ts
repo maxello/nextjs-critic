@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import config from "@/lib/config";
 
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
@@ -45,3 +46,17 @@ export const getInitials = (name: string): string =>
     .join("")
     .toUpperCase()
     .slice(0, 2);
+
+export const getAssetSrc = (src: string) => {
+  return config.env.imagekit.urlEndpoint + src;
+}
+
+export const getScoreClasses = (score: number) => {
+  if (score <= 10 && score >= 7) {
+    return "bg-success";
+  } else if (score < 7 && score >= 4) {
+    return "bg-warning";
+  } else {
+    return "bg-danger";
+  }
+}

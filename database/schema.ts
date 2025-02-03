@@ -14,7 +14,8 @@ import {
 //   "APPROVED",
 //   "REJECTED",
 // ]);
-export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN"]);
+
+export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN", "CRITIC"]);
 // export const BORROW_STATUS_ENUM = pgEnum("borrow_status", [
 //   "BORROWED",
 //   "RETURNED",
@@ -47,6 +48,17 @@ export const movies = pgTable("movies", {
   videoUrl: text("video_url").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   releaseYear: integer("release_year").notNull(),
+});
+
+export const movieReviews = pgTable("movie_reviews", {
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  userId: uuid("user_id").references(() => users.id).notNull(),
+  movieId: uuid("movie_id").references(() => movies.id).notNull(),
+  text: text("text").notNull(),
+  // companyName: text("text"),
+  score: integer("score").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  role: ROLE_ENUM("role").default("USER"),
 });
 
 // export const borrowRecords = pgTable("borrow_records", {

@@ -12,7 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default async function ProfileDropdown() {
+export default async function ProfileDropdown({
+  name
+}: {
+  name: string | null | undefined
+}) {
   const signOutHandler = async () => {
     'use server';
     await signOut({ redirectTo: "/" });
@@ -26,7 +30,9 @@ export default async function ProfileDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        {name && (
+          <DropdownMenuLabel>Welcome, {name}</DropdownMenuLabel>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="cursor-pointer">

@@ -1,34 +1,55 @@
-// Loading animation
-const shimmer =
-  'before:absolute z-[1] before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function MovieItemSkeleton() {
   return (
-    <div className={`${shimmer} relative group flex flex-col overflow-hidden`}>
-      <div className="block overflow-hidden rounded-t-md border border-slate-300 dark:border-slate-600">
-        <div
-          className="w-full aspect-[2/3] bg-slate-300 dark:bg-slate-600"
-        />
-      </div>
-      <div className="border border-slate-300 dark:border-slate-600 border-t-0 p-4 rounded-b-md grow flex flex-col justify-between">
-        <div className="mb-3 h-5 rounded-md bg-slate-300 dark:bg-slate-600"></div>
-        <div className="h-4 rounded-md bg-slate-300 dark:bg-slate-600"></div>
-      </div>
+    <div className="w-full aspect-[2/3] border border-border flex flex-col p-3 justify-end rounded-xl">
+      <Skeleton className="h-6 w-[85%] mb-2" />
+      <Skeleton className="h-4 w-[30%]" />
     </div>
   );
 }
 
-export function MoviesListSkeleton() {
+export function MoviesListSkeleton({
+  amount = 5
+}: {
+  amount?: number
+}) {
   return (
-    <div className="grid grid-cols-2 gap-x-2 sm:gap-x-4 lg:gap-x-6 gap-y-10 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 mb-6 lg:mb-12 max-w-[300px] mx-auto md:mx-0 sm:max-w-full">
-      {Array(5).fill(true, 0, 5).map((item, ind) => (<MovieItemSkeleton key={ind} />))}
+    <div className="grid grid-cols-2 gap-x-2 sm:gap-x-4 lg:gap-x-6 gap-y-10 sm:grid-cols-4 md:grid-cols-5 mb-6 lg:mb-12 max-w-[300px] mx-auto md:mx-0 sm:max-w-full">
+      {Array(amount).fill(true, 0, amount).map((item, ind) => (<MovieItemSkeleton key={ind} />))}
+    </div>
+  )
+}
+export function ReviewSummaryItemSkeleton() {
+  return (
+    <div className="h-14 flex items-center space-x-4">
+      <Skeleton className="relative flex h-12 w-12 md:h-14 md:w-14 shrink-0 overflow-hidden rounded-full" />
+      <div className="w-full">
+        <Skeleton className="h-5 w-[40%] mb-2" />
+        <Skeleton className="h-3 w-[50%]" />
+      </div>
+    </div>
+  )
+}
+export function ReviewSummarySkeleton() {
+  return (
+    <div className="mb-8">
+      {Array(3).fill(true, 0, 3).map((item, ind) => (
+        <div key={ind}>
+          {ind > 0 && (
+            <div className="shrink-0 bg-border h-[1px] w-full my-4"></div>
+          )}
+          <ReviewSummaryItemSkeleton />
+        </div>
+      ))}
     </div>
   )
 }
 
+
 export function ProductDetailsSkeleton() {
   return (
-    <div className={`${shimmer} relative`}>
+    <div className="relative">
       <div className="flex">
         <div className="h-5 w-20 bg-slate-200 mb-6 mr-3"></div><div className="h-5 w-20 bg-slate-200 mb-6"></div>
       </div>

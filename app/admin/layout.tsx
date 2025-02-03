@@ -9,22 +9,19 @@ import {
 } from "@/components/ui/sidebar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { auth } from "@/auth";
-import { db } from "@/database/drizzle";
-import { users } from "@/database/schema";
-import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { isAdminRole } from "@/lib/actions/auth";
 
-export default async function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({ 
+  children,
+}: { 
+  children: ReactNode,
+}) {
   const session = await auth();
 
   if (!session?.user?.id) redirect("/sign-in");
 
-  const isAdmin = await db
-    .select({ isAdmin: users.role })
-    .from(users)
-    .where(eq(users.id, session.user.id))
-    .limit(1)
-    .then((res) => res[0]?.isAdmin === "ADMIN");
+  const isAdmin = await isAdminRole(session.user.id);
 
   if (!isAdmin) redirect("/");
 
@@ -42,15 +39,6 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             <ThemesPicker />
           </div>
         </header>
-        {/* <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-          </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-          
-        </div> */}
         <div className="py-4 lg:py-6 px-4">
           {children}
         </div>

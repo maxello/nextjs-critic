@@ -18,6 +18,9 @@ import {
 const Breadcrumbs = () => {
   const paths = usePathname();
   const pathNames = paths.split('/').filter(path => path);
+  if (!paths || paths === '/') {
+    return null;
+  }
   return (
     <div className="flex items-center">
       <Breadcrumb>
@@ -35,7 +38,6 @@ const Breadcrumbs = () => {
                 <React.Fragment key={index}>
                   <li className="capitalize">
                     {(index === pathNames.length - 1) ? <span>{link}</span> : <Link className="text-primary" href={href}>{link}</Link>}
-
                   </li>
                   {pathNames.length !== index + 1 && <BreadcrumbSeparator className="hidden md:block" />}
                 </React.Fragment>

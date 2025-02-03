@@ -16,11 +16,12 @@ export default async function Header() {
     { name: 'Movies', href: '/movies', current: false },
     { name: 'Games', href: '/games', current: false },
   ]
+  // console.log("session+++", session);
   // if (session?.user?.role === "ADMIN") {
   //   navigation.push({ name: 'Dashboard', href: '/dashboard', current: false });
   // }
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-secondary/60 backdrop-blur" >
+    <header className="sticky top-0 z-50 border-b border-border bg-background/60 backdrop-blur" >
       <div className="root-container py-3">
         <div className="mx-auto max-w-6xl">
           <div className="flex justify-between items-center">
@@ -34,7 +35,7 @@ export default async function Header() {
               </div>
               <ThemesPicker />
               {session ? (
-                <ProfileDropdown />
+                <ProfileDropdown name={session.user?.name} />
               ) : (
                 <Button asChild className="ml-6" variant="outline">
                   <Link href="/sign-in">Login</Link>

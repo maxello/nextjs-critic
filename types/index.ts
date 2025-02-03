@@ -1,10 +1,18 @@
-export interface AuthCredentials {
+export type AuthCredentials = {
   fullName: string;
   email: string;
   password: string;
 }
 
-export interface Movie {
+export type RoleTypes = any; //some trouble with value "USER" | "CRITIC" | "ADMIN"
+
+export type UserProps = {
+  fullName: string;
+  id: string;
+  role: RoleTypes;
+}
+
+export type Movie = {
   id: string;
   title: string;
   director: string;
@@ -29,4 +37,33 @@ export type NavigationProps = {
   name: string;
   href: string;
   current: boolean;
+}
+
+export type ReviewProps = {
+  id: string;
+  userId: string;
+  text: string;
+  score: number;
+  createdAt: Date | null;
+  // companyName?: string;
+  role: RoleTypes;
+}
+
+export type ReviewParams = {
+  id: string;
+  text: string;
+  score: number;
+  createdAt: Date | null;
+  // fullName: UserProps["fullName"];
+  fullName: string | null;
+}
+
+export type ReviewSummaryProps = {
+  averageScore: number; 
+  totalReviews: number;
+}
+
+export interface OwnScoreProps {
+  score: number;
+  role: RoleTypes;
 }
