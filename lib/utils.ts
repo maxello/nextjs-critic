@@ -51,12 +51,12 @@ export const getAssetSrc = (src: string) => {
   return config.env.imagekit.urlEndpoint + src;
 }
 
-export const getScoreClasses = (score: number) => {
+export const getScoreLevel = (score: number) => {
   if (score <= 10 && score >= 7) {
-    return "bg-success";
+    return "high";
   } else if (score < 7 && score >= 4) {
-    return "bg-warning";
+    return "avarage";
   } else {
-    return "bg-danger";
+    return "low";
   }
 }

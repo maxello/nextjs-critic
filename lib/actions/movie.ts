@@ -121,7 +121,7 @@ export async function fetchMovieReviewSummary(movieId: string, role: RoleTypes) 
 }
 
 export async function fetchMovieOwnScore(movieId: string, userId: string) {
-  await new Promise((resolve) => setTimeout(resolve, 8000));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const movieOwnScore = await db.select({
     role: movieReviews.role,
     score: movieReviews.score,
@@ -133,9 +133,8 @@ export async function fetchMovieOwnScore(movieId: string, userId: string) {
       eq(movieReviews.userId, userId)
     )
   )
-  console.log("movieOwnScore++++", movieOwnScore)
 
-  return movieOwnScore.length ? movieOwnScore[0] : { role: "USER", score: 0 };
+  return movieOwnScore.length ? movieOwnScore[0] : { score: null };
 }
 
 // export async function fetchMovieReviewSummary(movieId: string) {

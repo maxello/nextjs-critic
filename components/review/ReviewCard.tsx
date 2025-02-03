@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getScoreClasses } from '@/lib/utils';
+import ReviewScore from './ReviewScore';
 const ReviewCard = ({
   fullName,
   score,
@@ -22,9 +22,7 @@ const ReviewCard = ({
     <Card className="lg:col-span-6">
       <CardHeader className="flex flex-row justify-between items-center">
         <div className="flex items-center space-x-4">
-          <div className="relative flex h-12 w-12 md:h-14 md:w-14 shrink-0 overflow-hidden rounded-full">
-            <div className={`${getScoreClasses(score)} aspect-square h-full w-full text-white flex items-center justify-center text-xl md:text-2xl font-bold`}>{score}</div>
-          </div>
+          <ReviewScore score={score} />
           <CardTitle>
             <h3 className="text-lg font-bold">{fullName}</h3>
           </CardTitle>

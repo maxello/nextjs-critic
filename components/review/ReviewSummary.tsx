@@ -19,8 +19,9 @@ const ReviewSummary = async ({
   // if (session?.user?.id) {
   //   promises.push(fetchMovieOwnScore(id, session.user.id));
   // }
-  const ownScore: OwnScoreProps = session?.user?.id ? await fetchMovieOwnScore(id, session.user.id) : { role: "USER", score: 0 };
+  const ownScore: OwnScoreProps = session?.user?.id ? await fetchMovieOwnScore(id, session.user.id) : { score: null };
   const [criticSummary, userSummary] = await Promise.all(promises);
+  console.log("---+++---", criticSummary, userSummary);
   console.log("ownScore", ownScore);
   return (
     <div className="mb-8">

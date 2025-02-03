@@ -59,11 +59,11 @@ export type ReviewParams = {
 }
 
 export type ReviewSummaryProps = {
-  averageScore: number; 
+  averageScore: number;
   totalReviews: number;
 }
 
 export interface OwnScoreProps {
-  score: number;
-  role: RoleTypes;
+  score: number | null;
+  role?: RoleTypes;
 }
