@@ -54,13 +54,7 @@ export type ReviewParams = {
   text: string;
   score: number;
   createdAt: Date | null;
-  // fullName: UserProps["fullName"];
   fullName: string | null;
-}
-
-export type ReviewSummaryProps = {
-  averageScore: number;
-  totalReviews: number;
 }
 
 export interface OwnScoreProps {

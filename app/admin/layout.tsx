@@ -7,7 +7,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import Breadcrumbs from "@/components/Breadcrumbs";
+// import Breadcrumbs from "@/components/Breadcrumbs";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { isAdminRole } from "@/lib/actions/auth";
@@ -34,7 +34,7 @@ export default async function AdminLayout({
             <div className="flex items-center gap-2">
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
-              <Breadcrumbs />
+              {/* <Breadcrumbs /> */}
             </div>
             <ThemesPicker />
           </div>

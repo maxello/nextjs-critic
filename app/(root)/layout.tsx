@@ -1,7 +1,6 @@
 import React, {ReactNode} from 'react';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Breadcrumbs from '@/components/Breadcrumbs';
 
 const layout = ({children}: {children: ReactNode}) => {
   return (
@@ -9,7 +8,7 @@ const layout = ({children}: {children: ReactNode}) => {
       <Header />
       <main className="root-container flex-1 py-6 bg-background text-foreground">
         <div className="mx-auto max-w-6xl">
-          <Breadcrumbs />
+          {/* <Breadcrumbs /> */}
           {children}
         </div>
       </main>

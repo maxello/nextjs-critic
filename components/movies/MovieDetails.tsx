@@ -6,47 +6,55 @@ import { Movie } from '@/types/index';
 import MovieSummary from '@/components/movies/MovieSummary';
 import Reviews from '@/components/review/Reviews';
 import ReviewSummary from '../review/ReviewSummary';
-import { ReviewSummarySkeleton } from '../skeletons';
+import { ReviewsSkeleton, ReviewSummarySkeleton } from '../skeletons';
+import Breadcrumbs from '../Breadcrumbs';
 
 export default async function MovieDetails({
-  params,
+  id,
 }: {
-  params: Promise<{ id: string }>
+  id: string
 }) {
-  const { id } = await params;
   const movie: Movie = await fetchMovieById(id);
+  const breadcrumbs = [
+    { 
+      label: 'Movies', 
+      href: `/movies` 
+    },
+    {
+      label: movie.title
+    },
+  ]
   return (
     <>
-      <div className="grid gap-4 lg:grid-cols-6 mb-8">
-        <div className="lg:col-span-4 aspect-video rounded-xl overflow-hidden border border-border shadow flex items-center">
+    <Breadcrumbs
+      breadcrumbs={breadcrumbs}
+    />
+    <div className="py-6">
+      <div className="grid gap-y-12 sm:gap-x-8 grid-cols-6 mb-8">
+        <div className="col-span-6 w-full lg:col-span-4 aspect-video rounded-xl overflow-hidden border border-border shadow flex items-center">
           {/* <VideoComponent path={movie.videoUrl} /> */}
         </div>
-        <div className="lg:col-span-2 py-6 lg:px-6">
+        <div className="col-span-6 sm:col-span-3 lg:col-span-2 lg:px-6">
           <h1 className="text-2xl font-bold mb-8">{movie.title}</h1>
-            <Suspense fallback={<ReviewSummarySkeleton />}>
-              <ReviewSummary id={id} />
-            </Suspense>
-            {/* <div className="text-center">
-              <Button asChild>
-                <Link href={`/movies/${id}/user-reviews`}>Add My Review</Link>
-              </Button>
-            </div> */}
+          <Suspense fallback={<ReviewSummarySkeleton />}>
+            <ReviewSummary id={id} />
+          </Suspense>
         </div>
-        <MovieSummary {...movie} />
-      </div>
-
-      <div className="grid gap-8 md:gap-4 md:grid-cols-6">
-        <div className="md:col-span-3">
-          <Suspense fallback={<div>Loading...</div>}>
+        <div className="col-span-6 sm:col-span-3 lg:col-span-4">
+          <MovieSummary {...movie} />
+        </div>
+        <div className="col-span-6 md:col-span-3">
+          <Suspense fallback={<ReviewsSkeleton />}>
             <Reviews title={'Critic Reviews'} categoryId={id} role={'CRITIC'} />
           </Suspense>
         </div>
-        <div className="md:col-span-3">
-          <Suspense fallback={<div>Loading...</div>}>
+        <div className="col-span-6 md:col-span-3">
+          <Suspense fallback={<ReviewsSkeleton />}>
             <Reviews title={'User Reviews'} categoryId={id} role={'USER'} />
           </Suspense>
         </div>
       </div>
+    </div>
     </>
   )
 }

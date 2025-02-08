@@ -13,7 +13,7 @@ const MovieSummary = (
   }
 ) => {
   return (
-    <div className="lg:col-span-4 py-6">
+    <>
       <h2 className="text-xl font-bold mb-4">Summary</h2>
       <div>
         <p className="mb-4 lg:mb-6">{description}</p>
@@ -29,7 +29,7 @@ const MovieSummary = (
           {director}
         </p>
       </div>
-    </div>
+    </>
   )
 }
 

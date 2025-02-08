@@ -7,28 +7,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ReviewScore from './ReviewScore';
+import { formatDateToLocal } from '@/lib/utils';
+
 const ReviewCard = ({
   fullName,
   score,
   text,
-  // createdAt,
+  createdAt,
 }: {
   fullName: string | null,
   score: number,
   text: string,
-  // createdAt: Date | null
+  createdAt: Date | null
 }) => {
   return (
     <Card className="lg:col-span-6">
       <CardHeader className="flex flex-row justify-between items-center">
         <div className="flex items-center space-x-4">
           <ReviewScore score={score} />
-          <CardTitle>
-            <h3 className="text-lg font-bold">{fullName}</h3>
-          </CardTitle>
+          {fullName && (
+            <CardTitle>
+              <h3 className="text-lg font-bold">{fullName}</h3>
+            </CardTitle>
+          )}
         </div>
-        <div className="text-xs uppercase text-muted-foreground">Oct 1, 2024</div>
-        {/* <div className="text-xs uppercase text-muted-foreground">{new Date(createdAt)}</div> */}
+        <div className="text-xs uppercase text-muted-foreground">{formatDateToLocal(createdAt)}</div>
       </CardHeader>
       <CardContent>
         <p>{text}</p>

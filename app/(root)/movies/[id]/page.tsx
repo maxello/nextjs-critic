@@ -6,9 +6,8 @@ export default async function MoviePage({
 }: {
   params: Promise<{ id: string }>
 }) {
+  const { id } = await params;
   return (
-    <div className="py-6">
-      <MovieDetails params={params} />
-    </div>
+    <MovieDetails id={id} />
   )
 }

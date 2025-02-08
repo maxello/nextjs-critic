@@ -21,18 +21,17 @@ const Reviews = async ({
         <h2 className="text-xl font-bold">{title}</h2>
         <Link href={'/'} className="underline hover:no-underline underline-offset-2">View all</Link>
       </div>
-      {/* <ReviewsList reviews={reviews} /> */}
       <div className="flex flex-col space-y-4">
-      {reviews?.length ? (
-        <>
-          {reviews.map((review: ReviewParams) => (
-            <ReviewCard key={review.id} {...review} />
-          ))}
-        </>
-      ) : (
-        <div className="text-muted-foreground">No reviews yet.</div>
-      )}
-    </div>
+        {reviews?.length ? (
+          <>
+            {reviews.map((review: ReviewParams) => (
+              <ReviewCard key={review.id} {...review} />
+            ))}
+          </>
+        ) : (
+          <div className="text-muted-foreground">No reviews yet.</div>
+        )}
+      </div>
     </>
   )
 }

@@ -20,6 +20,7 @@ export function MoviesListSkeleton({
     </div>
   )
 }
+
 export function ReviewSummaryItemSkeleton() {
   return (
     <div className="h-14 flex items-center space-x-4">
@@ -31,6 +32,7 @@ export function ReviewSummaryItemSkeleton() {
     </div>
   )
 }
+
 export function ReviewSummarySkeleton() {
   return (
     <div className="mb-8">
@@ -45,7 +47,6 @@ export function ReviewSummarySkeleton() {
     </div>
   )
 }
-
 
 export function ProductDetailsSkeleton() {
   return (
@@ -68,6 +69,39 @@ export function ProductDetailsSkeleton() {
           </div>
           <div className="h-12 w-[30%] bg-slate-200 rounded-md"></div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+export function ReviewsSkeleton() {
+  return (
+    <div className="mb-8">
+      <Skeleton className="h-6 w-[40%] mb-5" />
+      {Array(3).fill(true, 0, 3).map((item, ind) => (
+        <div key={ind}>
+          <ReviewCardSkeleton />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function ReviewCardSkeleton() {
+  return (
+    <div className="p-6 grid grid-cols-2 gap-y-7 items-center border border-border rounded-xl mb-4">
+      <div className="flex items-center space-x-4">
+        <Skeleton className="relative flex h-12 w-12 md:h-14 md:w-14 shrink-0 overflow-hidden rounded-full" />
+        <Skeleton className="h-5 w-[50%]" />
+      </div>
+      <div className="flex justify-end">
+        <Skeleton className="h-4 w-[40%]" />
+      </div>
+      <div className="flex-col justify-end col-span-2">
+        <Skeleton className="h-3 w-full mb-3" />
+        <Skeleton className="h-3 w-full mb-3" />
+        <Skeleton className="h-3 w-full mb-3" />
+        <Skeleton className="h-3 w-full" />
       </div>
     </div>
   )

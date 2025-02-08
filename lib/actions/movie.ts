@@ -137,16 +137,3 @@ export async function fetchMovieOwnScore(movieId: string, userId: string) {
   return movieOwnScore.length ? movieOwnScore[0] : { score: null };
 }
 
-// export async function fetchMovieReviewSummary(movieId: string) {
-//   const movieReviewStatistics = await db.select({
-//     type: movieReviews.type,
-//     averageScore: avg(movieReviews.score),
-//     totalReviews: count()
-//   })
-//   .from(movieReviews)
-//   .where(eq(movieReviews.movieId, movieId))
-//   .groupBy(movieReviews.type);
-//   console.log("movieReviewStatistics", movieReviewStatistics);
-//   return movieReviewStatistics[0];
-// }
-

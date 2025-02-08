@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import { Skeleton } from "@/components/ui/skeleton";
 import { MoviesListSkeleton } from '@/components/skeletons';
 import { fetchFilteredMovies, fetchMoviesPages } from '@/lib/actions/movie';
+import Breadcrumbs from '@/components/Breadcrumbs';
 export default async function MoviesPage(props: {
   searchParams?: Promise<{
     query?: string;
@@ -10,8 +11,14 @@ export default async function MoviesPage(props: {
   }>
 }) {
   const ITEMS_PER_PAGE = 6;
+  const breadcrumbs = [
+    { 
+      label: 'Movies'
+    }
+  ]
   return (
     <>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <h2 className="font-bebas-neue text-[6rem] leading-tight text-primary uppercase">Movies</h2>
       <Suspense fallback={
         <>

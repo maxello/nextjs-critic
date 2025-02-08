@@ -19,7 +19,7 @@ const ReviewSummaryItem = ({
       {totalReviews && averageScore !== null ? (
         <div>
           <p className="text-sm font-medium leading-none">{title}</p>
-          <Link href={`/movies/${id}/reviews`} className="text-sm text-muted-foreground underline hover:no-underline">Based on {totalReviews} Critic Review{totalReviews > 1 ? 's' : ''}</Link>
+          <Link href={`/movies/${id}/reviews`} className="text-sm text-muted-foreground underline hover:no-underline">Based on {totalReviews} Review{totalReviews > 1 ? 's' : ''}</Link>
         </div>
       ) : (
         <div>
