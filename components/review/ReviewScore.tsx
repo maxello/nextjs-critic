@@ -2,21 +2,28 @@ import React from 'react';
 import { getScoreLevel } from '@/lib/utils';
 
 const ReviewScore = ({
-  score
+  score,
+  isLarge = false
 }: {
-  score: number | null
+  score: number | null | undefined,
+  isLarge?: boolean
 }) => {
-  const noScore = score === null;
+  const noScore = score === null || score === undefined;
+
+  const sizeVariants = {
+    regular: "w-12 h-12 md:w-14 md:h-14 text-xl md:text-2xl",
+    large: "w-16 h-16 md:w-20 md:h-20 text-2xl md:text-3xl",
+  }
 
   const colorVariants = {
-    high: "bg-success",
-    avarage: "bg-warning",
-    low: "bg-danger"
+    positive: "bg-success",
+    mixed: "bg-warning",
+    negative: "bg-danger",
   };
 
   return (
-    <div className={`relative flex h-12 w-12 md:h-14 md:w-14 shrink-0 overflow-hidden rounded-full ${noScore ? 'border border-primary' : ''}`}>
-      <div className={`${!noScore && colorVariants[getScoreLevel(score)]} aspect-square h-full w-full text-white flex items-center justify-center text-xl md:text-2xl font-bold`}>
+    <div className={`relative flex ${isLarge ? sizeVariants['large'] : sizeVariants['regular']} shrink-0 overflow-hidden rounded-full ${noScore ? 'border border-primary' : ''}`}>
+      <div className={`${!noScore && colorVariants[getScoreLevel(score)]} aspect-square h-full w-full text-white flex items-center justify-center font-bold`}>
         {noScore ? '' : (score === 10 ? score : score.toFixed(1))}
       </div>
     </div>

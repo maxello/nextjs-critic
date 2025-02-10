@@ -12,13 +12,13 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the current page is among the first 3 pages,
   // show the first 3, an ellipsis, and the last 2 pages.
   if (currentPage <= 3) {
-    return [1, 2, 3, '...', totalPages - 1, totalPages];
+    return [1, 2, 3, "...", totalPages - 1, totalPages];
   }
 
   // If the current page is among the last 3 pages,
   // show the first 2, an ellipsis, and the last 3 pages.
   if (currentPage >= totalPages - 2) {
-    return [1, 2, '...', totalPages - 2, totalPages - 1, totalPages];
+    return [1, 2, "...", totalPages - 2, totalPages - 1, totalPages];
   }
 
   // If the current page is somewhere in the middle,
@@ -26,11 +26,11 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
   // another ellipsis, and the last page.
   return [
     1,
-    '...',
+    "...",
     currentPage - 1,
     currentPage,
     currentPage + 1,
-    '...',
+    "...",
     totalPages,
   ];
 };
@@ -49,31 +49,63 @@ export const getInitials = (name: string): string =>
 
 export const getAssetSrc = (src: string) => {
   return config.env.imagekit.urlEndpoint + src;
-}
+};
 
 export const getScoreLevel = (score: number) => {
   if (score <= 10 && score >= 7) {
-    return "high";
+    return "positive";
   } else if (score < 7 && score >= 4) {
-    return "avarage";
+    return "mixed";
   } else {
-    return "low";
+    return "negative";
   }
-}
+};
+
+export const colorVariants = {
+  positive: "bg-success",
+  mixed: "bg-warning",
+  negative: "bg-danger",
+};
 
 export const formatDateToLocal = (
   dateStr: Date | null,
-  locale: string = 'en-US',
+  locale: string = "en-US"
 ) => {
   if (!dateStr) {
     return "";
   }
   const date = new Date(dateStr);
   const options: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
+    day: "numeric",
+    month: "short",
+    year: "numeric",
   };
   const formatter = new Intl.DateTimeFormat(locale, options);
   return formatter.format(date);
+};
+
+export const getPercentageValues = (
+  positive: number,
+  mixed: number,
+  negative: number
+) => {
+  const total = positive + mixed + negative;
+
+  if (total === 0) {
+    return {
+      positive: 0,
+      mixed: 0,
+      negative: 0,
+    };
+  }
+
+  const percentageP = ((positive / total) * 100);
+  const percentageM = ((mixed / total) * 100);
+  const percentageN = ((negative / total) * 100);
+
+  return {
+    positiveP: percentageP,
+    mixedP: percentageM,
+    negativeP: percentageN,
+  };
 };

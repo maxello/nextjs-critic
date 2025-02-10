@@ -4,7 +4,8 @@ export type AuthCredentials = {
   password: string;
 }
 
-export type RoleTypes = any; //some trouble with value "USER" | "CRITIC" | "ADMIN"
+export type RoleTypes = "USER" | "CRITIC" | "ADMIN"
+export type ReviewRoleProps = "USER" | "CRITIC"
 
 export type UserProps = {
   fullName: string;
@@ -59,5 +60,5 @@ export type ReviewParams = {
 
 export interface OwnScoreProps {
   score: number | null;
-  role?: RoleTypes;
+  role?: ReviewRoleProps | null;
 }

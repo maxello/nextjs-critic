@@ -16,10 +16,11 @@ export default async function MoviesPage(props: {
       label: 'Movies'
     }
   ]
+  const searchParams = await props.searchParams;
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
-      <h2 className="font-bebas-neue text-[6rem] leading-tight text-primary uppercase">Movies</h2>
+      <h2 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">Movies</h2>
       <Suspense fallback={
         <>
           <Skeleton className="h-9 w-full max-w-[400px] mb-8" />
@@ -27,7 +28,7 @@ export default async function MoviesPage(props: {
         </>
       }>
         <FilterableCategoryList 
-          searchParams={props.searchParams} 
+          searchParams={searchParams} 
           itemsPerPage={ITEMS_PER_PAGE} 
           fetchMoviesPages={fetchMoviesPages} 
           fetchFilteredMovies={fetchFilteredMovies}

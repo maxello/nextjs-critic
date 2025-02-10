@@ -1,11 +1,11 @@
 "use server";
-import { eq, ilike, desc, count, and, avg } from "drizzle-orm";
+import { eq, ilike, desc, count, and, avg, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/database/drizzle";
 import { movies, movieReviews } from "@/database/schema";
 // import { redirect } from 'next/navigation';
 import { users } from "@/database/schema";
-import { RoleTypes } from "@/types/index";
+import { ReviewRoleProps, RoleTypes } from "@/types/index";
 
 export async function fetchMoviesPages(query: string, itemsPerPage: number) {
   // await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -134,6 +134,30 @@ export async function fetchMovieOwnScore(movieId: string, userId: string) {
     )
   )
 
-  return movieOwnScore.length ? movieOwnScore[0] : { score: null };
+  return movieOwnScore[0] || { score: null };
 }
 
+export async function fetchMovieReviewStatistics(role: ReviewRoleProps, movieId: string) {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  const result = await db.select({
+    positive: count(
+      sql`CASE WHEN ${movieReviews.score} BETWEEN 7 AND 10 THEN 1 END`
+    ),
+    mixed: count(
+      sql`CASE WHEN ${movieReviews.score} BETWEEN 4 AND 6 THEN 1 END`
+    ),
+    negative: count(
+      sql`CASE WHEN ${movieReviews.score} < 4 THEN 1 END`
+    ),
+    total: count(),
+    average: avg(movieReviews.score).mapWith(Number)
+  }).from(movieReviews)
+    .where(
+      and(
+        eq(movieReviews.movieId, movieId),
+        eq(movieReviews.role, role),
+      )
+    )
+  console.log("fetchMovieReviewStatistics Result: ", result);
+  return result[0];
+}

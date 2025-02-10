@@ -10,24 +10,23 @@ const ReviewOwnScoreItem = ({
   title = 'Score',
 }: {
   id: string,
-  role?: RoleTypes,
-  score: number | null,
+  role?: RoleTypes | null,
+  score?: number | null,
   title: string,
 }) => {
+  const linkText = (role && score !== null) ? `You have a ${role} role` : "No reviews yet";
   return (
     <div className="flex items-center space-x-4">
       <ReviewScore score={score} />
-      {role && score !== null ? (
-        <div>
-          <p className="text-sm font-medium leading-none">{title}</p>
-          <Link href={`/movies/${id}/reviews`} className="text-sm text-muted-foreground underline hover:no-underline">You have a {role} role</Link>
-        </div>
-      ) : (
-        <div>
-          <p className="text-sm font-medium leading-none mb-0.5">{title}</p>
-          <Link href={`/movies/${id}/reviews`} className="text-sm text-muted-foreground underline hover:no-underline">No reviews yet</Link>
-        </div>
-      )}
+      <div>
+        <p className="text-sm font-medium leading-none mb-0.5">{title}</p>
+        <Link 
+          href={role ? (`/movies/${id}/${role === 'CRITIC' ? 'critic-reviews' : 'user-reviews'}`) : '/sign-in'} 
+          className="text-sm text-muted-foreground underline hover:no-underline"
+        >
+          {linkText}
+        </Link>
+      </div>
     </div>
   )
 }

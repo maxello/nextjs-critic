@@ -106,3 +106,46 @@ export function ReviewCardSkeleton() {
     </div>
   )
 }
+
+export function ReviewStatisticsSkeleton() {
+  return (
+    <div className="border border-border p-4 md:p-6 rounded-xl grid md:grid-cols-2 gap-4">
+      <div className="flex items-center">
+        <Skeleton className="relative flex h-16 w-16 md:h-20 md:w-20 shrink-0 overflow-hidden rounded-full" />
+        <div className="ml-4 md:ml-5 w-full">
+          <Skeleton className="h-6 w-20 mb-2" />
+          <Skeleton className="h-3 w-20" />
+        </div>
+      </div>
+      <div className="flex flex-col gap-3">
+        {Array(3).fill(true, 0, 3).map((item, ind) => (
+          <div key={ind} className="grid grid-cols-12 items-center gap-x-4">
+            <Skeleton className="h-6 w-[30%] lg:w-full lg:text-right col-span-12 lg:col-span-3 capitalize" />
+            <div className="col-span-8 lg:col-span-7">
+              <Skeleton className="h-2 w-full" />
+            </div>
+            <div className="col-span-4 lg:col-span-2 whitespace-nowrap flex gap-1">
+              <Skeleton className="h-6 w-7" />
+              <Skeleton className="h-6 w-10" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    // <div className="p-6 grid grid-cols-2 gap-y-7 items-center border border-border rounded-xl mb-4">
+    //   <div className="flex items-center space-x-4">
+    //     <Skeleton className="relative flex h-16 w-16 md:h-20 md:w-20 shrink-0 overflow-hidden rounded-full" />
+    //     <Skeleton className="h-5 w-[50%]" />
+    //   </div>
+    //   <div className="flex justify-end">
+    //     <Skeleton className="h-4 w-[40%]" />
+    //   </div>
+    //   <div className="flex-col justify-end col-span-2">
+    //     <Skeleton className="h-3 w-full mb-3" />
+    //     <Skeleton className="h-3 w-full mb-3" />
+    //     <Skeleton className="h-3 w-full mb-3" />
+    //     <Skeleton className="h-3 w-full" />
+    //   </div>
+    // </div>
+  )
+}

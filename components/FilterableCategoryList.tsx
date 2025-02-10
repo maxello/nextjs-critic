@@ -12,18 +12,17 @@ const FilterableCategoryList = async ({
   fetchMoviesPages,
   placeholder = ''
 }: {
-  searchParams?: Promise<{
+  searchParams?: {
     query?: string;
     page?: string;
-  }>,
+  },
   itemsPerPage: number,
   fetchFilteredMovies: (arg0: string, arg1: number, arg2: number ) => Promise<Movie[]>,
   fetchMoviesPages: (arg0: string, arg1: number) => Promise<number>,
   placeholder: string
 }) => {
-  const sParams = await searchParams;
-  const query = sParams?.query || '';
-  const currentPage = Number(sParams?.page) || 1;
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchMoviesPages(query, itemsPerPage);
   const movies = await fetchFilteredMovies(query, currentPage, itemsPerPage);
   return (
