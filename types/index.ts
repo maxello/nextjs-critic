@@ -4,8 +4,8 @@ export type AuthCredentials = {
   password: string;
 }
 
-export type RoleTypes = "USER" | "CRITIC" | "ADMIN"
 export type ReviewRoleProps = "USER" | "CRITIC"
+export type RoleTypes = ReviewRoleProps | "ADMIN"
 
 export type UserProps = {
   fullName: string;

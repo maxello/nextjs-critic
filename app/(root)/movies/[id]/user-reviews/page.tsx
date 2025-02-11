@@ -1,7 +1,8 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import ReviewDialog from '@/components/review/ReviewDialog';
+import ReviewFormDialog from '@/components/review/ReviewFormDialog';
+import ReviewsList from '@/components/review/ReviewsList';
 import ReviewStatistics from '@/components/review/ReviewStatistics';
-import { ReviewStatisticsSkeleton } from '@/components/skeletons';
+import { ReviewsListSkeleton, ReviewStatisticsSkeleton } from '@/components/skeletons';
 import { fetchMovieById } from '@/lib/actions/movie';
 import React, { Suspense } from 'react';
 
@@ -32,7 +33,10 @@ export default async function UserReviewsPage({
       <Suspense fallback={<ReviewStatisticsSkeleton />}>
         <ReviewStatistics id={movie.id} role={'USER'} />
       </Suspense>
-      <ReviewDialog isOpen={false} />
+      <ReviewFormDialog isOpen={false} />
+      <Suspense fallback={<ReviewsListSkeleton />}>
+        <ReviewsList id={movie.id} role={'USER'} />
+      </Suspense>
     </>
   )
 }

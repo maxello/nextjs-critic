@@ -16,7 +16,7 @@ const ReviewStatistics = async ({
   return (
     <>
       {counts?.average > 0 && (
-        <div className="border border-border p-4 md:p-6 rounded-xl grid md:grid-cols-2 gap-4">
+        <div className="border bg-card text-card-foreground shadow p-4 md:p-6 rounded-xl grid md:grid-cols-2 gap-4 mb-8">
           <div className="flex items-center">
             <ReviewScore score={counts.average} isLarge={true} />
             <div className="ml-4 md:ml-5">

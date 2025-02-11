@@ -21,7 +21,7 @@ export default async function Header() {
   //   navigation.push({ name: 'Dashboard', href: '/dashboard', current: false });
   // }
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/60 backdrop-blur" >
+    <header className="sticky top-0 z-50 border-b border-border bg-card/60 backdrop-blur" >
       <div className="root-container py-3">
         <div className="mx-auto max-w-6xl">
           <div className="flex justify-between items-center">

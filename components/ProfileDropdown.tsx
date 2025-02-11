@@ -24,7 +24,7 @@ export default async function ProfileDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="[&_svg]:size-[1.4rem] border-0 shadow-none text-primary transition-colors hover:text-primary focus-visible:outline-none">
+        <Button variant="outline" size="icon" className="[&_svg]:size-[1.4rem] bg-accent/0 border-0 shadow-none text-primary transition-colors hover:text-primary focus-visible:outline-none">
           <span className="sr-only">Open user menu</span>
           <CircleUserRound aria-hidden="true" />
         </Button>

@@ -30,7 +30,7 @@ export default function ThemesPicker() {
   }
 
   return (
-    <Button variant="outline" size="icon" className="[&_svg]:size-[1.4rem] border-0 shadow-none text-primary transition-colors hover:text-primary focus-visible:outline-none" onClick={toggleTheme}>
+    <Button variant="outline" size="icon" className="[&_svg]:size-[1.4rem] bg-accent/0 border-0 shadow-none text-primary transition-colors hover:text-primary focus-visible:outline-none" onClick={toggleTheme}>
       <span className="sr-only">Change theme</span>
       {getIcon(theme)}
     </Button>

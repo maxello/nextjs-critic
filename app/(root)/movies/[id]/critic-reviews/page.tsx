@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import ReviewDialog from '@/components/review/ReviewDialog';
+// import ReviewFormDialog from '@/components/review/ReviewFormDialog';
 import ReviewStatistics from '@/components/review/ReviewStatistics';
 import { ReviewStatisticsSkeleton } from '@/components/skeletons';
 import { fetchMovieById } from '@/lib/actions/movie';
@@ -33,7 +33,7 @@ export default async function CriticReviewsPage({
       <Suspense fallback={<ReviewStatisticsSkeleton />}>
         <ReviewStatistics id={movie.id} role={'CRITIC'} />
       </Suspense>
-      <ReviewDialog isOpen={false} />
+      {/* <ReviewFormDialog isOpen={false} /> */}
     </>
   )
 }
