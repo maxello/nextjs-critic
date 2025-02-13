@@ -24,3 +24,9 @@ export const movieSchema = z.object({
   // images: z.array(z.string()),
   releaseYear: z.coerce.number().int().gte(1895).lte(2025) // change it to dynamic
 });
+
+export const reviewSchema = z.object({
+  text: z.string().trim().min(10).max(1000),
+  score: z.coerce.number().int().gte(0).lte(10)
+  // score: z.coerce.number().min(1).max(5),
+});

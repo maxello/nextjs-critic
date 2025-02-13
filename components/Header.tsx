@@ -14,7 +14,7 @@ export default async function Header() {
   const navigation: NavigationProps[] = [
     { name: 'Home', href: '/', current: false },
     { name: 'Movies', href: '/movies', current: false },
-    { name: 'Games', href: '/games', current: false },
+    // { name: 'Games', href: '/games', current: false },
   ]
   // console.log("session+++", session);
   // if (session?.user?.role === "ADMIN") {

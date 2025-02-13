@@ -38,4 +38,4 @@ const Reviews = async ({
   )
 }
 
-export default Reviews
+export default Reviews;

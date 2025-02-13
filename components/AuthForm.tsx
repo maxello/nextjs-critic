@@ -81,7 +81,7 @@ const AuthForm = <T extends FieldValues>({
     <Card className="w-full">
       <CardHeader>
         <CardTitle>
-          <h1 className="text-2xl">{isSignIn ? "Welcome back to Critic" : "Create your account"}</h1>
+          <h1 className="text-2xl">{isSignIn ? "Welcome back" : "Create your account"}</h1>
         </CardTitle>
         <CardDescription>{isSignIn
           ? "Access the vast collection of resources, and stay updated"

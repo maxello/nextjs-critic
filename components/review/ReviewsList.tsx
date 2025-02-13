@@ -1,16 +1,22 @@
-import { fetchMovieReviews } from '@/lib/actions/movie';
-import { ReviewParams, RoleTypes } from '@/types';
-import React from 'react';
-import ReviewCard from './ReviewCard';
+import { ReviewParams, ReviewScoreStatusProps, RoleTypes } from '@/types'
+import React from 'react'
+import ReviewCard from './ReviewCard'
+import { fetchMovieReviews } from '@/lib/actions/movie'
 
-const ReviewsList = async ({
+const ReviewsList = async({
   role,
-  id
+  id,
+  currentPage,
+  itemsPerPage,
+  filterBy
 }: {
   role: RoleTypes,
-  id: string
+  id: string,
+  currentPage: number,
+  itemsPerPage: number,
+  filterBy?: ReviewScoreStatusProps
 }) => {
-  const reviews = await fetchMovieReviews(id, role);
+  const reviews = await fetchMovieReviews(id, role, currentPage, itemsPerPage, filterBy);
   return (
     <div className="flex flex-col space-y-4 mb-8">
       {reviews?.length ? (
@@ -20,7 +26,7 @@ const ReviewsList = async ({
           ))}
         </>
       ) : (
-        <div className="text-muted-foreground">No reviews yet.</div>
+        <div className="text-muted-foreground text-center">No reviews yet.</div>
       )}
     </div>
   )

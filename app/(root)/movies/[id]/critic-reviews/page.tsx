@@ -33,7 +33,6 @@ export default async function CriticReviewsPage({
       <Suspense fallback={<ReviewStatisticsSkeleton />}>
         <ReviewStatistics id={movie.id} role={'CRITIC'} />
       </Suspense>
-      {/* <ReviewFormDialog isOpen={false} /> */}
     </>
   )
 }

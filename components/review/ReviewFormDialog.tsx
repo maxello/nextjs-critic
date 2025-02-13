@@ -8,11 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter
+  // DialogFooter
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+// import ReviewForm from './ReviewForm';
 
 // type TypeProp = "create" | "update";
 
@@ -24,19 +23,17 @@ const ReviewFormDialog = ({
   console.log("isOpen", isOpen);
   return (
     <Dialog>
-      <div className="mb-8 text-center">
-        <DialogTrigger asChild>
-          <Button variant="outline">Add Review</Button>
-        </DialogTrigger>
-      </div>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
+      <DialogTrigger asChild>
+        <Button>Add Review</Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-[90%] md:h-auto md:max-w-[500px] rounded-xl max-h-[85dvh] overflow-y-auto">
+        <DialogHeader className="text-left">
           <DialogTitle>Add Review</DialogTitle>
           <DialogDescription>
             Make changes to your profile here.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        {/* <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Name
@@ -49,10 +46,11 @@ const ReviewFormDialog = ({
             </Label>
             <Input id="username" value="@peduarte" className="col-span-3" onChange={() => {}} />
           </div>
-        </div>
-        <DialogFooter>
+        </div> */}
+          {/* <ReviewForm type={'create'} /> */}
+        {/* <DialogFooter>
           <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   )

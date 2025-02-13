@@ -46,7 +46,6 @@ export type ReviewProps = {
   text: string;
   score: number;
   createdAt: Date | null;
-  // companyName?: string;
   role: RoleTypes;
 }
 
@@ -58,7 +57,11 @@ export type ReviewParams = {
   fullName: string | null;
 }
 
-export interface OwnScoreProps {
+// export type ReviewParams = Omit<ReviewProps, "id" | "createdAt">;
+
+export type OwnScoreProps = {
   score: number | null;
   role?: ReviewRoleProps | null;
 }
+
+export type ReviewScoreStatusProps = 'positive' | 'mixed' | 'negative'

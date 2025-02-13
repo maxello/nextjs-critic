@@ -1,10 +1,18 @@
 'use client';
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import clsx from 'clsx';
-import Link from 'next/link';
+import {
+  Pagination as PaginationWrapper,
+  PaginationContent,
+  // PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
 import { generatePagination } from '@/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { Button } from "./ui/button";
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
@@ -19,14 +27,17 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   return (
     <>
       {totalPages > 1 && (
-        <div className="inline-flex">
-          <PaginationArrow
-            direction="left"
-            href={createPageURL(currentPage - 1)}
-            isDisabled={currentPage <= 1}
-          />
-
-          <div className="flex -space-x-px">
+        <PaginationWrapper>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href={createPageURL(currentPage - 1)}
+                aria-disabled={currentPage <= 1}
+                className={
+                  currentPage <= 1 ? "pointer-events-none opacity-50" : undefined
+                }
+              />
+            </PaginationItem>
             {allPages.map((page: number | string, index: number) => {
               let position: 'first' | 'last' | 'single' | 'middle' | undefined;
 
@@ -45,14 +56,18 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
                 />
               );
             })}
-          </div>
 
-          <PaginationArrow
-            direction="right"
-            href={createPageURL(currentPage + 1)}
-            isDisabled={currentPage >= totalPages}
-          />
-        </div>
+            <PaginationItem>
+              <PaginationNext
+                href={createPageURL(currentPage + 1)}
+                aria-disabled={currentPage >= totalPages}
+                className={
+                  currentPage >= totalPages ? "pointer-events-none opacity-50" : undefined
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </PaginationWrapper>
       )}
     </>
   );
@@ -69,57 +84,13 @@ function PaginationNumber({
   position?: 'first' | 'last' | 'middle' | 'single';
   isActive: boolean;
 }) {
-  const className = clsx(
-    'flex h-10 w-10 items-center justify-center text-sm border',
-    {
-      'rounded-l-md': position === 'first' || position === 'single',
-      'rounded-r-md': position === 'last' || position === 'single',
-      'z-10 bg-sky-500 border-sky-500 text-white': isActive,
-      'hover:bg-gray-100': !isActive && position !== 'middle',
-      'text-gray-300': position === 'middle',
-    },
-  );
-
   return isActive || position === 'middle' ? (
-    <div className={className}>{page}</div>
+    <PaginationItem>
+      <Button className="pointer-events-none">{page}</Button>
+    </PaginationItem>
   ) : (
-    <Link href={href} className={className}>
-      {page}
-    </Link>
-  );
-}
-
-function PaginationArrow({
-  href,
-  direction,
-  isDisabled,
-}: {
-  href: string;
-  direction: 'left' | 'right';
-  isDisabled?: boolean;
-}) {
-  const className = clsx(
-    'flex h-10 w-10 items-center justify-center rounded-md border',
-    {
-      'pointer-events-none text-gray-300': isDisabled,
-      'hover:bg-gray-100': !isDisabled,
-      'mr-2 md:mr-4': direction === 'left',
-      'ml-2 md:ml-4': direction === 'right',
-    },
-  );
-
-  const icon =
-    direction === 'left' ? (
-      <ArrowLeft className="w-4" />
-    ) : (
-      <ArrowRight className="w-4" />
-    );
-
-  return isDisabled ? (
-    <div className={className}>{icon}</div>
-  ) : (
-    <Link className={className} href={href}>
-      {icon}
-    </Link>
+    <PaginationItem>
+      <PaginationLink href={href}>{page}</PaginationLink>
+    </PaginationItem>
   );
 }
