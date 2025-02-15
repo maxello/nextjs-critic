@@ -6,8 +6,11 @@ import { ReviewsListSkeleton, ReviewStatisticsSkeleton } from '@/components/skel
 import { fetchMovieById, fetchMovieReviewsPages } from '@/lib/actions/movie';
 import React, { Suspense } from 'react';
 import ReviewsList from '@/components/review/ReviewsList';
-import { ReviewScoreStatusProps } from '@/types';
+import { ReviewScoreStatusProps, RoleTypes } from '@/types';
 import ReviewScoreStatusFilter from '@/components/review/ReviewScoreStatusFilter';
+import { auth } from '@/auth';
+import { fetchUserRoleById } from '@/lib/actions';
+// import ReviewCard from '@/components/review/ReviewCard';
 
 export default async function UserReviewsPage({
   params,
@@ -39,21 +42,38 @@ export default async function UserReviewsPage({
     }
   ]
   const itemsPerPage = 3;
-  const totalPages = await fetchMovieReviewsPages(movie.id, 'USER', itemsPerPage, filterBy);
-  console.log("totalPages--", totalPages);
+  const role = 'USER';
+  const totalPages = await fetchMovieReviewsPages(movie.id, role, itemsPerPage, filterBy);
+  const session = await auth();
+  const userId = session?.user?.id;
+  // const ownReview = userId ? await fetchMovieReviewByUserId(id, userId) : null;
+  const userRole: RoleTypes | null = userId ? await fetchUserRoleById(userId) : null;
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <h2 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">User Reviews</h2>
       <Suspense fallback={<ReviewStatisticsSkeleton />}>
-        <ReviewStatistics id={movie.id} role={'USER'} />
+        <ReviewStatistics id={movie.id} role={role} />
       </Suspense>
+      {/* {ownReview?.id && (
+        <div className="mb-8">
+          <ReviewCard {...ownReview} />
+        </div>
+      )} */}
       <div className="flex items-center mb-8 space-x-3 justify-end">
         <ReviewScoreStatusFilter />
-        <ReviewFormDialog isOpen={false} />
+        { userRole === role && (
+          <ReviewFormDialog isOpen={false} />
+        )}
       </div>
-      <Suspense fallback={<ReviewsListSkeleton />}>
-        <ReviewsList id={movie.id} role={'USER'} currentPage={currentPage} itemsPerPage={itemsPerPage} filterBy={filterBy} />
+      <Suspense fallback={<ReviewsListSkeleton />} key={JSON.stringify(searchP)}>
+        <ReviewsList 
+          id={movie.id}
+          role={role} 
+          currentPage={currentPage} 
+          itemsPerPage={itemsPerPage} 
+          filterBy={filterBy} 
+        />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />

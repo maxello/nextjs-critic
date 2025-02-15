@@ -1,11 +1,16 @@
 "use server";
 import { eq, ilike, desc, count, and, avg, sql, Column } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
 import { db } from "@/database/drizzle";
 import { movies, movieReviews } from "@/database/schema";
 // import { redirect } from 'next/navigation';
 import { users } from "@/database/schema";
-import { ReviewParams, ReviewRoleProps, ReviewScoreStatusProps, RoleTypes } from "@/types/index";
+import { 
+  ReviewProps, 
+  ReviewParams, 
+  ReviewRoleProps, 
+  ReviewScoreStatusProps, 
+  RoleTypes 
+} from "@/types/index";
 
 export async function fetchMoviesPages(query: string, itemsPerPage: number) {
   // await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -62,19 +67,6 @@ export async function fetchMovieById(
   }
 }
 
-export async function deleteMovie(
-  id: string
-) {
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
-  try {
-    await db.delete(movies).where(eq(movies.id, id));
-    revalidatePath('/admin/movies');
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch movie.');
-  }
-}
-
 export async function fetchMovieReviews(movieId: string, role: RoleTypes, currentPage: number = 1, itemsPerPage: number = 5, filterBy?: ReviewScoreStatusProps) {
   console.log('Fetching reviews data...');
   // await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -101,6 +93,7 @@ export async function fetchMovieReviews(movieId: string, role: RoleTypes, curren
       .limit(itemsPerPage)
       .offset(offset)
       console.log("reviewsResponse", reviewsResponse);
+      
     return reviewsResponse;
   } catch (error) {
     console.error('Database Error:', error);
@@ -154,16 +147,26 @@ export async function fetchMovieReviewSummary(movieId: string, role: RoleTypes) 
 }
 
 export async function fetchMovieReviewByUserId(movieId: string, userId: string) {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  const movieOwnScore = await db.select()
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  const movieOwnScore = await db.select({
+    createdAt: movieReviews.createdAt,
+    id: movieReviews.id,
+    movieId: movieReviews.movieId,
+    role: movieReviews.role,
+    score: movieReviews.score,
+    text: movieReviews.text,
+    userId: movieReviews.text,
+    fullName: users.fullName
+  })
   .from(movieReviews)
+  .leftJoin(users, eq(movieReviews.userId, users.id))
   .where(
     and(
       eq(movieReviews.movieId, movieId),
       eq(movieReviews.userId, userId)
     )
   )
-  return movieOwnScore[0] || { score: null };
+  return movieOwnScore[0];
 }
 
 export async function fetchMovieReviewStatistics(role: ReviewRoleProps, movieId: string) {
@@ -190,29 +193,29 @@ export async function fetchMovieReviewStatistics(role: ReviewRoleProps, movieId:
   return result[0];
 }
 
-// export const createReview = async (params: ReviewParams) => {
-//   try {
-//     await db
-//       .insert(movies)
-//       .values(params)
-//       // .returning();
+export const createReview = async (params: ReviewParams) => {
+  try {
+    await db
+      .insert(movieReviews)
+      .values(params)
+      // .returning();
 
-//     return {
-//       success: true,
-//       // data: JSON.parse(JSON.stringify(newMovie[0])),
-//     };
+    return {
+      success: true,
+      // data: JSON.parse(JSON.stringify(newMovie[0])),
+    };
     
-//   } catch (error) {
-//     console.log(error);
+  } catch (error) {
+    console.log(error);
 
-//     return {
-//       success: false,
-//       message: "An error occurred while creating the movie",
-//     };
-//   }
-// };
+    return {
+      success: false,
+      message: "An error occurred while creating the movie",
+    };
+  }
+};
 
-export const updateReview = async (params: ReviewParams, id: string) => {
+export const updateReview = async (params: ReviewProps, id: string) => {
   try {
     const movie = await db
       .update(movies)

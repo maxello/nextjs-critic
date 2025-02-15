@@ -1,5 +1,6 @@
 import React from 'react';
 import { getScoreLevel } from '@/lib/utils';
+import { MessageSquareOff } from 'lucide-react';
 
 const ReviewScore = ({
   score,
@@ -24,7 +25,7 @@ const ReviewScore = ({
   return (
     <div className={`relative flex ${isLarge ? sizeVariants['large'] : sizeVariants['regular']} shrink-0 overflow-hidden rounded-full ${noScore ? 'border border-primary' : ''}`}>
       <div className={`${!noScore && colorVariants[getScoreLevel(score)]} aspect-square h-full w-full text-white flex items-center justify-center font-bold`}>
-        {noScore ? '' : (score === 10 ? score : score.toFixed(1))}
+        {noScore ? <MessageSquareOff className="text-primary" strokeWidth={1.5} /> : (score === 10 ? score : score.toFixed(1))}
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import { fetchMovieReviews } from '@/lib/actions/movie';
-import { ReviewParams, RoleTypes } from '@/types/index';
+import { ReviewProps, RoleTypes } from '@/types/index';
 import Link from 'next/link';
 import React from 'react';
 // import ReviewsList from './ReviewsList';
@@ -17,6 +17,7 @@ const Reviews = async ({
   link: string
 }) => {
   const reviews = await fetchMovieReviews(categoryId, role);
+  console.log("reviews", reviews);
   return (
     <>
       <div className="flex items-center space-x-2 mb-4">
@@ -26,7 +27,7 @@ const Reviews = async ({
       <div className="flex flex-col space-y-4">
         {reviews?.length ? (
           <>
-            {reviews.map((review: ReviewParams) => (
+            {reviews.map((review: ReviewProps) => (
               <ReviewCard key={review.id} {...review} />
             ))}
           </>

@@ -1,4 +1,4 @@
-import { ReviewParams, ReviewScoreStatusProps, RoleTypes } from '@/types'
+import { ReviewProps, ReviewScoreStatusProps, RoleTypes } from '@/types'
 import React from 'react'
 import ReviewCard from './ReviewCard'
 import { fetchMovieReviews } from '@/lib/actions/movie'
@@ -21,7 +21,7 @@ const ReviewsList = async({
     <div className="flex flex-col space-y-4 mb-8">
       {reviews?.length ? (
         <>
-          {reviews.map((review: ReviewParams) => (
+          {reviews.map((review: ReviewProps) => (
             <ReviewCard key={review.id} {...review} />
           ))}
         </>

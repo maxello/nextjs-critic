@@ -11,7 +11,7 @@ import {
   // DialogFooter
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-// import ReviewForm from './ReviewForm';
+import ReviewForm from './ReviewForm';
 
 // type TypeProp = "create" | "update";
 
@@ -47,7 +47,7 @@ const ReviewFormDialog = ({
             <Input id="username" value="@peduarte" className="col-span-3" onChange={() => {}} />
           </div>
         </div> */}
-          {/* <ReviewForm type={'create'} /> */}
+          <ReviewForm type={'create'} />
         {/* <DialogFooter>
           <Button type="submit">Save changes</Button>
         </DialogFooter> */}

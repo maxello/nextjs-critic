@@ -4,24 +4,24 @@ import Link from 'next/link';
 import { RoleTypes } from '@/types/index';
 import ReviewScore from './ReviewScore';
 const ReviewOwnScoreItem = ({
-  id,
+  movieId,
   role,
   score,
-  title = 'Score',
+  title = 'Score'
 }: {
-  id: string,
-  role?: RoleTypes | null,
-  score?: number | null,
-  title: string,
+  movieId: string,
+  role?: RoleTypes,
+  score?: number,
+  title?: string
 }) => {
-  const linkText = (role && score !== null) ? `You have a ${role} role` : "No reviews yet";
+  const linkText = (role && score !== undefined) ? `View your review` : "No reviews yet";
   return (
     <div className="flex items-center space-x-4">
       <ReviewScore score={score} />
       <div>
         <p className="text-sm font-medium leading-none mb-0.5">{title}</p>
         <Link 
-          href={role ? (`/movies/${id}/${role === 'CRITIC' ? 'critic-reviews' : 'user-reviews'}`) : '/sign-in'} 
+          href={role ? (`/movies/${movieId}/${role === 'CRITIC' ? 'critic-reviews' : 'user-reviews'}`) : '/sign-in'} 
           className="text-sm text-muted-foreground underline hover:no-underline"
         >
           {linkText}

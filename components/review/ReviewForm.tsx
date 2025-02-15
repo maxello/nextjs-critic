@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ReviewProps } from "@/types/index";
-// import { Movie, ReviewParams, ReviewProps } from "@/types/index";
 
 import {
   Form,
@@ -23,12 +22,13 @@ import { Button } from "@/components/ui/button";
 // import { createMovie } from "@/lib/admin/actions/movie";
 // import { toast } from "@/hooks/use-toast";
 import { useEffect } from "react";
-// import { updateReview } from "@/lib/actions/movie";
+// import { createReview } from "@/lib/actions/movie";
 
 type TypeProp = "create" | "update";
 
 const ReviewForm = ({ type, review }: { type: TypeProp, review?: ReviewProps }) => {
   // const router = useRouter();
+  console.log("review-------->", review);
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
@@ -46,7 +46,7 @@ const ReviewForm = ({ type, review }: { type: TypeProp, review?: ReviewProps }) 
 
   const onSubmit = async (values: z.infer<typeof reviewSchema>) => {
     console.log(values);
-    // const result = await createReview(values, review.id);
+    // const result = await createReview(values);
 
 
 

@@ -15,7 +15,7 @@ const ReviewSummary = async ({
     fetchMovieReviewSummary(id, 'CRITIC'),
     fetchMovieReviewSummary(id, 'USER'),
   ];
-  const ownReview = session?.user?.id ? await fetchMovieReviewByUserId(id, session.user.id) : { score: null };
+  const ownReview = session?.user?.id ? await fetchMovieReviewByUserId(id, session.user.id) : {};
   const [criticSummary, userSummary] = await Promise.all(promises);
   return (
     <>
@@ -23,7 +23,7 @@ const ReviewSummary = async ({
       <Separator className="my-4" />
       <ReviewSummaryItem {...userSummary} title={'User Score'} link={`/movies/${id}/user-reviews`} />
       <Separator className="my-4" />
-      <ReviewOwnScoreItem id={id} {...ownReview} title={'My Score'} />
+      <ReviewOwnScoreItem movieId={id} {...ownReview} title={'My Score'} />
     </>
   )
 }

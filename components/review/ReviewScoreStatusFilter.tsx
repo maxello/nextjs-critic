@@ -38,7 +38,7 @@ const ReviewScoreStatusFilter = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="*">All Reviews</SelectItem>
+          <SelectItem value="all">All Reviews</SelectItem>
           <SelectItem value="positive">Positive</SelectItem>
           <SelectItem value="mixed">Mixed</SelectItem>
           <SelectItem value="negative">Negative</SelectItem>

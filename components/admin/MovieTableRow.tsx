@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import Link from 'next/link';
 import { Movie } from '@/types/index';
-import { deleteMovie } from '@/lib/actions/movie';
+import { deleteMovie } from '@/lib/admin/actions/movie';
 
 const MovieTableRow = ({item}: {item: Movie}) => {
   const deleteMovieWithId = deleteMovie.bind(null, item.id);

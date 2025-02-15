@@ -40,16 +40,16 @@ export type NavigationProps = {
   current: boolean;
 }
 
-export type ReviewProps = {
-  id: string;
-  userId: string;
-  text: string;
-  score: number;
-  createdAt: Date | null;
-  role: RoleTypes;
-}
+// export type ReviewProps = {
+//   id: string;
+//   userId: string;
+//   text: string;
+//   score: number;
+//   createdAt: Date | null;
+//   role: RoleTypes;
+// }
 
-export type ReviewParams = {
+export type ReviewProps = {
   id: string;
   text: string;
   score: number;
@@ -57,11 +57,19 @@ export type ReviewParams = {
   fullName: string | null;
 }
 
-// export type ReviewParams = Omit<ReviewProps, "id" | "createdAt">;
+export type ReviewParams = {
+  id: string;
+  userId: string;
+  movieId: string;
+  text: string;
+  score: number;
+  role: RoleTypes;
+  fullName?: string;
+}
 
 export type OwnScoreProps = {
   score: number | null;
   role?: ReviewRoleProps | null;
 }
 
-export type ReviewScoreStatusProps = 'positive' | 'mixed' | 'negative'
+export type ReviewScoreStatusProps = 'positive' | 'mixed' | 'negative' | 'all'
