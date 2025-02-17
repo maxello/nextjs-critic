@@ -30,13 +30,12 @@ export const createMovie = async (params: MovieParams) => {
 
 export const updateMovie = async (params: MovieParams, id: string) => {
   try {
-    const movie = await db
+    await db
       .update(movies)
       .set({
         ...params
       })
       .where(eq(movies.id, id))
-      console.log("movie", movie);
     return {
       success: true,
       // data: JSON.parse(JSON.stringify(movie[0])),

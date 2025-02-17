@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { RoleTypes } from '@/types/index';
+import { ReviewRoleProps } from '@/types/index';
 import ReviewScore from './ReviewScore';
 const ReviewOwnScoreItem = ({
   movieId,
@@ -10,7 +10,7 @@ const ReviewOwnScoreItem = ({
   title = 'Score'
 }: {
   movieId: string,
-  role?: RoleTypes,
+  role?: ReviewRoleProps,
   score?: number,
   title?: string
 }) => {

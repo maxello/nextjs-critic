@@ -16,6 +16,7 @@ import {
 // ]);
 
 export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN", "CRITIC"]);
+export const REVIEW_ROLE_ENUM = pgEnum("role", ["USER", "CRITIC"]);
 // export const BORROW_STATUS_ENUM = pgEnum("borrow_status", [
 //   "BORROWED",
 //   "RETURNED",
@@ -29,7 +30,7 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
   // universityCard: text("university_card").notNull(),
   // status: STATUS_ENUM("status").default("PENDING"),
-  role: ROLE_ENUM("role").default("USER"),
+  role: ROLE_ENUM("role").default("USER").notNull(),
   lastActivityDate: date("last_activity_date").defaultNow(),
   createdAt: timestamp("created_at", {
     withTimezone: true,
@@ -58,7 +59,7 @@ export const movieReviews = pgTable("movie_reviews", {
   // companyName: text("text"),
   score: integer("score").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-  role: ROLE_ENUM("role").default("USER"),
+  role: ROLE_ENUM("role").default("USER").notNull(),
 });
 
 // export const borrowRecords = pgTable("borrow_records", {

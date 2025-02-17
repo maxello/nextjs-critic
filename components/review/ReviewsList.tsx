@@ -8,13 +8,15 @@ const ReviewsList = async({
   id,
   currentPage,
   itemsPerPage,
-  filterBy
+  filterBy,
+  ownReviewId
 }: {
   role: RoleTypes,
   id: string,
   currentPage: number,
   itemsPerPage: number,
-  filterBy?: ReviewScoreStatusProps
+  filterBy?: ReviewScoreStatusProps,
+  ownReviewId?: string
 }) => {
   const reviews = await fetchMovieReviews(id, role, currentPage, itemsPerPage, filterBy);
   return (
@@ -22,7 +24,7 @@ const ReviewsList = async({
       {reviews?.length ? (
         <>
           {reviews.map((review: ReviewProps) => (
-            <ReviewCard key={review.id} {...review} />
+            <ReviewCard key={review.id} {...review} ownReviewId={ownReviewId} />
           ))}
         </>
       ) : (

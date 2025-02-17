@@ -54,8 +54,19 @@ export type ReviewProps = {
   text: string;
   score: number;
   createdAt: Date | null;
-  fullName: string | null;
+  fullName: UserProps["fullName"] | null;
 }
+
+// {
+//   createdAt: Date | null;
+//   id: string;
+//   movieId: string;
+//   role: "USER" | "CRITIC" | "ADMIN" | null;
+//   score: number;
+//   text: string;
+//   userId: string;
+//   fullName: string | null;
+// }
 
 export type ReviewParams = {
   id: string;
@@ -64,7 +75,7 @@ export type ReviewParams = {
   text: string;
   score: number;
   role: RoleTypes;
-  fullName?: string;
+  createdAt: Date | null;
 }
 
 export type OwnScoreProps = {

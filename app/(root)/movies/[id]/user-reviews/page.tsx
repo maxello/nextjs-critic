@@ -3,7 +3,7 @@ import Pagination from '@/components/Pagination';
 import ReviewFormDialog from '@/components/review/ReviewFormDialog';
 import ReviewStatistics from '@/components/review/ReviewStatistics';
 import { ReviewsListSkeleton, ReviewStatisticsSkeleton } from '@/components/skeletons';
-import { fetchMovieById, fetchMovieReviewsPages } from '@/lib/actions/movie';
+import { fetchMovieById, fetchMovieReviewByUserId, fetchMovieReviewsPages } from '@/lib/actions/movie';
 import React, { Suspense } from 'react';
 import ReviewsList from '@/components/review/ReviewsList';
 import { ReviewScoreStatusProps, RoleTypes } from '@/types';
@@ -27,7 +27,6 @@ export default async function UserReviewsPage({
   const currentPage = Number(searchP?.page) || 1;
   const filterBy = searchP?.filterBy || undefined;
   const movie = await fetchMovieById(id);
-
   const breadcrumbs = [
     {
       label: 'Movies',
@@ -46,7 +45,7 @@ export default async function UserReviewsPage({
   const totalPages = await fetchMovieReviewsPages(movie.id, role, itemsPerPage, filterBy);
   const session = await auth();
   const userId = session?.user?.id;
-  // const ownReview = userId ? await fetchMovieReviewByUserId(id, userId) : null;
+  const ownReview = userId ? await fetchMovieReviewByUserId(id, userId) : null;
   const userRole: RoleTypes | null = userId ? await fetchUserRoleById(userId) : null;
   return (
     <>
@@ -63,7 +62,7 @@ export default async function UserReviewsPage({
       <div className="flex items-center mb-8 space-x-3 justify-end">
         <ReviewScoreStatusFilter />
         { userRole === role && (
-          <ReviewFormDialog isOpen={false} />
+          <ReviewFormDialog review={ownReview} id={movie.id} userId={userId} userRole={userRole} />
         )}
       </div>
       <Suspense fallback={<ReviewsListSkeleton />} key={JSON.stringify(searchP)}>
@@ -72,7 +71,8 @@ export default async function UserReviewsPage({
           role={role} 
           currentPage={currentPage} 
           itemsPerPage={itemsPerPage} 
-          filterBy={filterBy} 
+          filterBy={filterBy}
+          ownReviewId={ownReview?.id}
         />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">

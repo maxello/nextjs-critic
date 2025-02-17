@@ -26,7 +26,6 @@ export const movieSchema = z.object({
 });
 
 export const reviewSchema = z.object({
-  text: z.string().trim().min(10).max(1000),
+  text: z.string().trim().min(10).max(5000),
   score: z.coerce.number().int().gte(0).lte(10)
-  // score: z.coerce.number().min(1).max(5),
 });

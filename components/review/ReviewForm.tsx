@@ -3,7 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { ReviewProps } from "@/types/index";
+import { ReviewParams, RoleTypes } from "@/types/index";
+import { Slider } from "@/components/ui/slider"
 
 import {
   Form,
@@ -13,75 +14,76 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-// import { useRouter } from "next/navigation";
+import { usePathname } from 'next/navigation'
 import { reviewSchema } from "@/lib/validations";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-// import FileUpload from "@/components/FileUpload";
-// import { createMovie } from "@/lib/admin/actions/movie";
-// import { toast } from "@/hooks/use-toast";
-import { useEffect } from "react";
-// import { createReview } from "@/lib/actions/movie";
+import { createReview, updateReview } from "@/lib/actions/movie";
+import { toast } from "@/hooks/use-toast";
 
 type TypeProp = "create" | "update";
 
-const ReviewForm = ({ type, review }: { type: TypeProp, review?: ReviewProps }) => {
-  // const router = useRouter();
-  console.log("review-------->", review);
+const ReviewForm = ({ 
+  type, 
+  toggleDialog, 
+  review, 
+  id,
+  userId,
+  userRole
+} : { 
+  type: TypeProp, 
+  toggleDialog: () => void, 
+  review: ReviewParams | null, 
+  id: string, 
+  userId: string | undefined, 
+  userRole: RoleTypes | undefined
+}) => {
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
-      text: "",
-      score: 5
+      text: review?.text || "",
+      score: review?.score || 5
     }
   });
-
-  useEffect(() => {
-    if (review?.id) {
-      form.setValue("text", review.text);
-      form.setValue("score", review.score);
-    }
-  }, [review, form]);
+  
+  const pathname = usePathname();
 
   const onSubmit = async (values: z.infer<typeof reviewSchema>) => {
-    console.log(values);
-    // const result = await createReview(values);
-
-
-
-
-    // if (type === 'update' && review?.id) {
-    //   const result = await updateReview(values, review.id);
-    //   if (result.success) {
-    //     toast({
-    //       title: "Success",
-    //       description: "Movie updated successfully",
-    //     });
-    //     router.push("/admin/movies");
-    //   } else {
-    //     toast({
-    //       title: "Error",
-    //       description: result.message,
-    //       variant: "destructive",
-    //     });
-    //   }
-    // } else if (type === 'create') {
-    //   const result = await createMovie(values);
-    //   if (result.success) {
-    //     toast({
-    //       title: "Success",
-    //       description: "Movie created successfully",
-    //     });
-    //     router.push("/admin/movies");
-    //   } else {
-    //     toast({
-    //       title: "Error",
-    //       description: result.message,
-    //       variant: "destructive",
-    //     });
-    //   }
-    // }
+    if (type === 'update' && review?.id) {
+      const result = await updateReview(values, review?.id, pathname);
+      if (result.success) {
+        toast({
+          title: "Success",
+          description: "Review updated successfully",
+          variant: 'success'
+        });
+        toggleDialog();
+      } else {
+        toast({
+          title: "Error",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    } else if (type === 'create') {
+      if (!(userId && userRole)) {
+        return;
+      }
+      const result = await createReview(values, id, userId, userRole, pathname);
+      if (result.success) {
+        toast({
+          title: "Success",
+          description: "Review created successfully",
+        });
+        toggleDialog();
+      } else {
+        toast({
+          title: "Error",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    }
   };
 
   return (
@@ -113,22 +115,18 @@ const ReviewForm = ({ type, review }: { type: TypeProp, review?: ReviewProps }) 
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-sm font-normal">
-                Score
+                Score {field.value}
               </FormLabel>
               <FormControl>
-                <Input
-                  type="number"
-                  placeholder="Review score"
-                  {...field}
-                />
+                <Slider defaultValue={[field.value]} onValueChange={(e) => {field.onChange(...e)}} max={10} min={0} step={1} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit">
-          {type === 'create' ? "Add" : "Edit"} Movie
+        <Button type="submit" disabled={!form.formState.isDirty || form.formState.isLoading}>
+          {type === 'create' ? "Add" : "Edit"} Review
         </Button>
       </form>
     </Form>

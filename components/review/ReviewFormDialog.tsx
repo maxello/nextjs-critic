@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -12,45 +12,46 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import ReviewForm from './ReviewForm';
+import { ReviewParams, RoleTypes } from '@/types';
 
 // type TypeProp = "create" | "update";
 
 const ReviewFormDialog = ({
-  isOpen
+  review,
+  id,
+  userId,
+  userRole
 } : {
-  isOpen: boolean
+  review: ReviewParams | null,
+  id: string,
+  userId: string | undefined,
+  userRole: RoleTypes | undefined
 }) => {
-  console.log("isOpen", isOpen);
+  const [open, setOpen] = useState(false);
+  const toggleDialog = () => {
+    setOpen(() => !open);
+  }
+  const reviewId = review?.id;
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Add Review</Button>
+        <Button onClick={toggleDialog}>{reviewId ? 'Edit' : 'Add'} Review</Button>
       </DialogTrigger>
       <DialogContent className="max-w-[90%] md:h-auto md:max-w-[500px] rounded-xl max-h-[85dvh] overflow-y-auto">
         <DialogHeader className="text-left">
-          <DialogTitle>Add Review</DialogTitle>
+          <DialogTitle>{reviewId ? 'Edit' : 'Add'} Review</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here.
+            {reviewId ? 'Make changes to your review here' : ''}
           </DialogDescription>
         </DialogHeader>
-        {/* <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" onChange={() => {}} />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" onChange={() => {}} />
-          </div>
-        </div> */}
-          <ReviewForm type={'create'} />
-        {/* <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter> */}
+        <ReviewForm 
+          type={reviewId ? 'update' : 'create'}
+          id={id} 
+          userId={userId}
+          toggleDialog={toggleDialog}
+          userRole={userRole}
+          review={review}  
+        />
       </DialogContent>
     </Dialog>
   )

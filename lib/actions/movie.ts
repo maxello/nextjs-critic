@@ -5,12 +5,11 @@ import { movies, movieReviews } from "@/database/schema";
 // import { redirect } from 'next/navigation';
 import { users } from "@/database/schema";
 import { 
-  ReviewProps, 
-  ReviewParams, 
   ReviewRoleProps, 
   ReviewScoreStatusProps, 
   RoleTypes 
 } from "@/types/index";
+import { revalidatePath } from "next/cache";
 
 export async function fetchMoviesPages(query: string, itemsPerPage: number) {
   // await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -148,15 +147,14 @@ export async function fetchMovieReviewSummary(movieId: string, role: RoleTypes) 
 
 export async function fetchMovieReviewByUserId(movieId: string, userId: string) {
   // await new Promise((resolve) => setTimeout(resolve, 3000));
-  const movieOwnScore = await db.select({
-    createdAt: movieReviews.createdAt,
+  const ownMovieReview = await db.select({
     id: movieReviews.id,
+    createdAt: movieReviews.createdAt,
     movieId: movieReviews.movieId,
     role: movieReviews.role,
-    score: movieReviews.score,
+    score: movieReviews.score, 
     text: movieReviews.text,
-    userId: movieReviews.text,
-    fullName: users.fullName
+    userId: movieReviews.userId
   })
   .from(movieReviews)
   .leftJoin(users, eq(movieReviews.userId, users.id))
@@ -166,7 +164,7 @@ export async function fetchMovieReviewByUserId(movieId: string, userId: string) 
       eq(movieReviews.userId, userId)
     )
   )
-  return movieOwnScore[0];
+  return ownMovieReview[0];
 }
 
 export async function fetchMovieReviewStatistics(role: ReviewRoleProps, movieId: string) {
@@ -193,51 +191,63 @@ export async function fetchMovieReviewStatistics(role: ReviewRoleProps, movieId:
   return result[0];
 }
 
-export const createReview = async (params: ReviewParams) => {
+export const createReview = async (
+  params: {
+    text: string, 
+    score: number 
+  }, 
+  id: string, userId: string, 
+  userRole: RoleTypes | undefined,
+  pathname: string
+) => {
   try {
     await db
       .insert(movieReviews)
-      .values(params)
+      .values(
+        {
+          userId: userId,
+          movieId: id,
+          text: params.text,
+          score: params.score,
+          role: userRole
+        }
+      )
       // .returning();
-
+      revalidatePath(pathname);
     return {
-      success: true,
-      // data: JSON.parse(JSON.stringify(newMovie[0])),
-    };
-    
+      success: true
+    }
   } catch (error) {
     console.log(error);
-
     return {
       success: false,
-      message: "An error occurred while creating the movie",
-    };
+      message: "An error occurred while creating the review",
+    }
   }
-};
+}
 
-export const updateReview = async (params: ReviewProps, id: string) => {
+export const updateReview = async (params: {text: string, score: number }, reviewId: string, pathname: string) => {
   try {
-    const movie = await db
-      .update(movies)
+    await db
+      .update(movieReviews)
       .set({
         ...params
       })
-      .where(eq(movies.id, id))
-      console.log("movie", movie);
+      .where(
+        eq(movieReviews.id, reviewId)
+      )
+      revalidatePath(pathname);
     return {
-      success: true,
-      // data: JSON.parse(JSON.stringify(movie[0])),
-    };
-    
+      success: true
+    }
   } catch (error) {
     console.log(error);
-
     return {
       success: false,
-      message: "An error occurred while creating the movie",
-    };
+      message: "An error occurred while updating the review",
+    }
   }
-};
+}
 
 function sqlFilter(col: Column, filter?: ReviewScoreStatusProps) {
   if (filter === "positive") {
@@ -266,7 +276,6 @@ export async function fetchMovieReviewsPages(movieId: string, role: RoleTypes, i
       )
     )
     const totalPages = Math.ceil(Number(itemsCount[0].count) / itemsPerPage);
-    console.log("totalPages--------->", totalPages);
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
