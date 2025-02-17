@@ -62,6 +62,7 @@ const AuthForm = <T extends FieldValues>({
     if (result.success) {
       toast({
         title: "Success",
+        variant: 'success',
         description: isSignIn
           ? "You have successfully signed in."
           : "You have successfully signed up.",

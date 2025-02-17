@@ -20,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { createReview, updateReview } from "@/lib/actions/movie";
 import { toast } from "@/hooks/use-toast";
+import ReviewScore from "./ReviewScore";
 
 type TypeProp = "create" | "update";
 
@@ -89,6 +90,22 @@ const ReviewForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <FormField
+          control={form.control}
+          name={"score"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <div className="mb-3">
+                <ReviewScore score={field.value} />
+              </div>
+              <FormControl>
+                <Slider defaultValue={[field.value]} onValueChange={(e) => {field.onChange(...e)}} max={10} min={0} step={1} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name={"text"}
@@ -103,22 +120,6 @@ const ReviewForm = ({
                   {...field}
                   rows={6}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <FormField
-          control={form.control}
-          name={"score"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-sm font-normal">
-                Score {field.value}
-              </FormLabel>
-              <FormControl>
-                <Slider defaultValue={[field.value]} onValueChange={(e) => {field.onChange(...e)}} max={10} min={0} step={1} />
               </FormControl>
               <FormMessage />
             </FormItem>

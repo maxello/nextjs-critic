@@ -39,7 +39,7 @@ const ReviewFormDialog = ({
       </DialogTrigger>
       <DialogContent className="max-w-[90%] md:h-auto md:max-w-[500px] rounded-xl max-h-[85dvh] overflow-y-auto">
         <DialogHeader className="text-left">
-          <DialogTitle>{reviewId ? 'Edit' : 'Add'} Review</DialogTitle>
+          <DialogTitle>{reviewId ? 'Edit the' : 'Add a'} Review</DialogTitle>
           <DialogDescription>
             {reviewId ? 'Make changes to your review here' : ''}
           </DialogDescription>

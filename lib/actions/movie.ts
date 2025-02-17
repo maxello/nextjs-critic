@@ -43,7 +43,6 @@ export async function fetchFilteredMovies(
       .orderBy(desc(movies.title))
       .limit(itemsPerPage)
       .offset(offset);
-      console.log("moviesResponse", moviesResponse);
     return moviesResponse;
   } catch (error) {
     console.error('Database Error:', error);

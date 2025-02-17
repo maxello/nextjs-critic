@@ -5,8 +5,7 @@ import MovieSummary from '@/components/movies/MovieSummary';
 import Reviews from '@/components/review/Reviews';
 import ReviewSummary from '@/components/review/ReviewSummary';
 import { ReviewsSkeleton, ReviewSummarySkeleton } from '@/components/skeletons';
-// import ReviewDialog from '@/components/review/ReviewDialog';
-// import VideoComponent from '@/components/VideoComponent';
+import VideoComponent from '@/components/VideoComponent';
 
 export default async function MoviePage({
   params,
@@ -31,7 +30,7 @@ export default async function MoviePage({
       <div className="py-6">
         <div className="grid gap-y-12 sm:gap-x-8 grid-cols-6 mb-8">
           <div className="col-span-6 w-full lg:col-span-4 aspect-video rounded-xl overflow-hidden border border-border shadow flex items-center">
-            {/* <VideoComponent path={movie.videoUrl} /> */}
+            <VideoComponent path={movie.videoUrl} />
           </div>
           <div className="col-span-6 sm:col-span-3 lg:col-span-2 lg:px-6">
             <h1 className="text-2xl font-bold mb-8">{movie.title}</h1>

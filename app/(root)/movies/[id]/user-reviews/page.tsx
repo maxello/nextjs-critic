@@ -10,6 +10,8 @@ import { ReviewScoreStatusProps, RoleTypes } from '@/types';
 import ReviewScoreStatusFilter from '@/components/review/ReviewScoreStatusFilter';
 import { auth } from '@/auth';
 import { fetchUserRoleById } from '@/lib/actions';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 // import ReviewCard from '@/components/review/ReviewCard';
 
 export default async function UserReviewsPage({
@@ -59,6 +61,14 @@ export default async function UserReviewsPage({
           <ReviewCard {...ownReview} />
         </div>
       )} */}
+      { !userId && (
+        <div className="mb-8">
+          <p className="mb-3 text-muted-foreground">To leave a review, please log in.</p>
+          <Button asChild>
+            <Link href={'/sign-in'}>Log in</Link>
+          </Button>
+        </div>
+      )}
       <div className="flex items-center mb-8 space-x-3 justify-end">
         <ReviewScoreStatusFilter />
         { userRole === role && (

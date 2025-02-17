@@ -38,7 +38,7 @@ export default async function Header() {
                 <ProfileDropdown name={session.user?.name} />
               ) : (
                 <Button asChild className="ml-6" variant="outline">
-                  <Link href="/sign-in">Login</Link>
+                  <Link href="/sign-in">Log in</Link>
                 </Button>
               )}
               <MobileNav items={navigation} />
