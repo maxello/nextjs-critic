@@ -14,7 +14,7 @@ const ReviewOwnScoreItem = ({
   score?: number,
   title?: string
 }) => {
-  const linkText = (role && score !== undefined) ? `View your review` : "No reviews yet";
+  const linkText = (role && score !== undefined) ? `View reviews` : "No reviews yet";
   return (
     <div className="flex items-center space-x-4">
       <ReviewScore score={score} />

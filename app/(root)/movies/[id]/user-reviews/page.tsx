@@ -62,7 +62,12 @@ export default async function UserReviewsPage({
       <div className="flex items-center mb-8 space-x-3 justify-end">
         <ReviewScoreStatusFilter />
         { userRole === role && (
-          <ReviewFormDialog review={ownReview} id={movie.id} userId={userId} userRole={userRole} />
+          <ReviewFormDialog 
+            review={ownReview} 
+            id={movie.id} 
+            userId={userId} 
+            userRole={userRole} 
+          />
         )}
       </div>
       <Suspense fallback={<ReviewsListSkeleton />} key={JSON.stringify(searchP)}>
