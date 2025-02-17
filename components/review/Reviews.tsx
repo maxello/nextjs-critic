@@ -17,7 +17,6 @@ const Reviews = async ({
   link: string
 }) => {
   const reviews = await fetchMovieReviews(categoryId, role);
-  console.log("reviews", reviews);
   return (
     <>
       <div className="flex items-center space-x-2 mb-4">

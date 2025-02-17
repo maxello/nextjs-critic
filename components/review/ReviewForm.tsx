@@ -43,7 +43,7 @@ const ReviewForm = ({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
       text: review?.text || "",
-      score: review?.score || 5
+      score: review?.score ?? 5
     }
   });
   
