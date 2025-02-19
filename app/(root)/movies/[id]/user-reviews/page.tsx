@@ -11,6 +11,7 @@ import { auth } from '@/auth';
 import { fetchUserRoleById } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import ReviewScoreStatusFilter from '@/components/review/ReviewScoreStatusFilter';
 
 export default async function UserReviewsPage({
   params,
@@ -72,6 +73,9 @@ export default async function UserReviewsPage({
       <Suspense fallback={<ReviewStatisticsSkeleton />}>
         <ReviewStatistics id={movie.id} role={role} />
       </Suspense>
+      <div className="flex items-center mb-8 space-x-3 justify-start">
+        <ReviewScoreStatusFilter />
+      </div>
       <Suspense fallback={<ReviewsListSkeleton />} key={JSON.stringify(searchP)}>
         <ReviewsList
           id={movie.id}
