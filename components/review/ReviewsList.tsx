@@ -1,7 +1,8 @@
-import { ReviewProps, ReviewScoreStatusProps, RoleTypes } from '@/types'
-import React from 'react'
-import ReviewCard from './ReviewCard'
-import { fetchMovieReviews } from '@/lib/actions/movie'
+import { ReviewProps, ReviewScoreStatusProps, RoleTypes } from '@/types';
+import React from 'react';
+import ReviewCard from './ReviewCard';
+import { fetchMovieReviews } from '@/lib/actions/movie';
+import ReviewScoreStatusFilter from './ReviewScoreStatusFilter';
 
 const ReviewsList = async({
   role,
@@ -20,12 +21,17 @@ const ReviewsList = async({
 }) => {
   const reviews = await fetchMovieReviews(id, role, currentPage, itemsPerPage, filterBy);
   return (
-    <div className="flex flex-col space-y-4 mb-8">
+    <div className="mb-8">
       {reviews?.length ? (
         <>
-          {reviews.map((review: ReviewProps) => (
-            <ReviewCard key={review.id} {...review} ownReviewId={ownReviewId} />
-          ))}
+          <div className="flex items-center mb-8 space-x-3 justify-end">
+            <ReviewScoreStatusFilter />
+          </div>
+          <div className="flex flex-col space-y-3">
+            {reviews.map((review: ReviewProps) => (
+              <ReviewCard key={review.id} {...review} ownReviewId={ownReviewId} />
+            ))}
+          </div>
         </>
       ) : (
         <div className="text-muted-foreground text-center">No reviews yet.</div>

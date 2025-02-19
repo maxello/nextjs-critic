@@ -7,12 +7,10 @@ import { fetchMovieById, fetchMovieReviewByUserId, fetchMovieReviewsPages } from
 import React, { Suspense } from 'react';
 import ReviewsList from '@/components/review/ReviewsList';
 import { ReviewScoreStatusProps, RoleTypes } from '@/types';
-import ReviewScoreStatusFilter from '@/components/review/ReviewScoreStatusFilter';
 import { auth } from '@/auth';
 import { fetchUserRoleById } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-// import ReviewCard from '@/components/review/ReviewCard';
 
 export default async function UserReviewsPage({
   params,
@@ -42,7 +40,7 @@ export default async function UserReviewsPage({
       label: 'User Reviews'
     }
   ]
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
   const role = 'USER';
   const totalPages = await fetchMovieReviewsPages(movie.id, role, itemsPerPage, filterBy);
   const session = await auth();
@@ -53,39 +51,33 @@ export default async function UserReviewsPage({
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <h2 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">User Reviews</h2>
-      <Suspense fallback={<ReviewStatisticsSkeleton />}>
-        <ReviewStatistics id={movie.id} role={role} />
-      </Suspense>
-      {/* {ownReview?.id && (
-        <div className="mb-8">
-          <ReviewCard {...ownReview} />
-        </div>
-      )} */}
-      { !userId && (
-        <div className="mb-8">
+      {!userId && (
+        <div className="flex items-center mb-8 space-x-3">
           <p className="mb-3 text-muted-foreground">To leave a review, please log in.</p>
           <Button asChild>
             <Link href={'/sign-in'}>Log in</Link>
           </Button>
         </div>
       )}
-      <div className="flex items-center mb-8 space-x-3 justify-end">
-        <ReviewScoreStatusFilter />
-        { userRole === role && (
-          <ReviewFormDialog 
-            review={ownReview} 
-            id={movie.id} 
-            userId={userId} 
-            userRole={userRole} 
+      {userRole === role && (
+        <div className="flex items-center mb-8 space-x-3">
+          <ReviewFormDialog
+            review={ownReview}
+            id={movie.id}
+            userId={userId}
+            userRole={userRole}
           />
-        )}
-      </div>
+        </div>
+      )}
+      <Suspense fallback={<ReviewStatisticsSkeleton />}>
+        <ReviewStatistics id={movie.id} role={role} />
+      </Suspense>
       <Suspense fallback={<ReviewsListSkeleton />} key={JSON.stringify(searchP)}>
-        <ReviewsList 
+        <ReviewsList
           id={movie.id}
-          role={role} 
-          currentPage={currentPage} 
-          itemsPerPage={itemsPerPage} 
+          role={role}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
           filterBy={filterBy}
           ownReviewId={ownReview?.id}
         />

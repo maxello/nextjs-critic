@@ -163,7 +163,7 @@ export async function fetchMovieReviewByUserId(movieId: string, userId: string) 
       eq(movieReviews.userId, userId)
     )
   )
-  return ownMovieReview[0];
+  return ownMovieReview[0] || null;
 }
 
 export async function fetchMovieReviewStatistics(role: ReviewRoleProps, movieId: string) {

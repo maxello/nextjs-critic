@@ -14,7 +14,7 @@ export async function fetchUserRoleById(
     .from(users)
     .where(eq(users.id, id))
     .limit(1)
-    return res[0]?.role;
+    return res[0]?.role || null;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch user role by id.');

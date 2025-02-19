@@ -37,7 +37,6 @@ export type ThemeProps = {
 export type NavigationProps = {
   name: string;
   href: string;
-  current: boolean;
 }
 
 // export type ReviewProps = {

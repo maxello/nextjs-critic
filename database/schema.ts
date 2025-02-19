@@ -15,12 +15,9 @@ import {
 //   "REJECTED",
 // ]);
 
-export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN", "CRITIC"]);
-export const REVIEW_ROLE_ENUM = pgEnum("role", ["USER", "CRITIC"]);
-// export const BORROW_STATUS_ENUM = pgEnum("borrow_status", [
-//   "BORROWED",
-//   "RETURNED",
-// ]);
+export const ROLE_ENUM = pgEnum("role", [
+  "USER", "ADMIN", "CRITIC"
+]);
 
 export const users = pgTable("users", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),

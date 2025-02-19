@@ -11,11 +11,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { RoleTypes } from '@/types';
 
 export default async function ProfileDropdown({
-  name
+  name,
+  role
 }: {
-  name: string | null | undefined
+  name: string,
+  role: RoleTypes
 }) {
   const signOutHandler = async () => {
     'use server';
@@ -30,16 +33,16 @@ export default async function ProfileDropdown({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        {name && (
-          <DropdownMenuLabel>Welcome, {name}</DropdownMenuLabel>
-        )}
+        <DropdownMenuLabel>
+          <div className="mb-1">It&apos;s {name}</div>
+          <div className="text-xs text-muted-foreground font-normal">
+            I can write reviews as a <span className="text-success">{role}</span>
+          </div>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="cursor-pointer">
             Profile
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            Settings
           </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer" onClick={signOutHandler}>
             Sign out
