@@ -32,6 +32,7 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at", {
     withTimezone: true,
   }).defaultNow(),
+  agency: varchar("agency", { length: 255 })
 });
 
 export const movies = pgTable("movies", {
@@ -57,6 +58,7 @@ export const movieReviews = pgTable("movie_reviews", {
   score: integer("score").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   role: ROLE_ENUM("role").default("USER").notNull(),
+  fullReviewLink: varchar("full_review_link", { length: 2048 })
 });
 
 // export const borrowRecords = pgTable("borrow_records", {

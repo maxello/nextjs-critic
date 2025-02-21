@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { RoleTypes } from '@/types';
+import Link from 'next/link';
 
 export default async function ProfileDropdown({
   name,
@@ -41,8 +42,8 @@ export default async function ProfileDropdown({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
-            Profile
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Link href={'/profile'}>Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer" onClick={signOutHandler}>
             Sign out

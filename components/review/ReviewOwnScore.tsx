@@ -10,7 +10,7 @@ const ReviewOwnScoreItem = ({
   title = 'Score'
 }: {
   movieId: string,
-  role: RoleTypes | null,
+  role: RoleTypes | undefined,
   score: number | undefined,
   title?: string
 }) => {

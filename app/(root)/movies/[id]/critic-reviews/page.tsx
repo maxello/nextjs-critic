@@ -6,9 +6,9 @@ import { ReviewsListSkeleton, ReviewStatisticsSkeleton } from '@/components/skel
 import { fetchMovieById, fetchMovieReviewByUserId, fetchMovieReviewsPages } from '@/lib/actions/movie';
 import React, { Suspense } from 'react';
 import ReviewsList from '@/components/review/ReviewsList';
-import { ReviewScoreStatusProps, RoleTypes } from '@/types';
+import { ReviewScoreStatusProps } from '@/types';
 import { auth } from '@/auth';
-import { fetchUserRoleById } from '@/lib/actions';
+import { fetchUserById } from '@/lib/actions';
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import ReviewScoreStatusFilter from '@/components/review/ReviewScoreStatusFilter';
@@ -47,7 +47,8 @@ export default async function CriticReviewsPage({
   const session = await auth();
   const userId = session?.user?.id;
   const ownReview = userId ? await fetchMovieReviewByUserId(id, userId) : null;
-  const userRole: RoleTypes | null = userId ? await fetchUserRoleById(userId) : null;
+  const user = userId ? await fetchUserById(userId) : null;
+  const userRole = user?.role;
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />

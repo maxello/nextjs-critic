@@ -2,12 +2,15 @@ import React from 'react';
 import {
   Card,
   CardContent,
-  // CardFooter,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import ReviewScore from './ReviewScore';
 import { formatDateToLocal } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
+import { ExternalLink, PenTool } from 'lucide-react';
+import Link from 'next/link';
 
 const ReviewCard = ({
   fullName,
@@ -15,14 +18,18 @@ const ReviewCard = ({
   text,
   createdAt,
   id,
-  ownReviewId
+  ownReviewId,
+  agency,
+  fullReviewLink
 }: {
   fullName: string | null,
   score: number,
   text: string,
   createdAt: Date | null,
   id: string,
-  ownReviewId?: string
+  ownReviewId?: string,
+  agency?: string | null,
+  fullReviewLink: string | null
 }) => {
   return (
     <Card className={`lg:col-span-6 ${ownReviewId === id ? 'border-primary bg-primary/10' : ''}`}>
@@ -45,14 +52,23 @@ const ReviewCard = ({
       <CardContent>
         <p>{text}</p>
       </CardContent>
-      {/* {review.companyName && ( */}
-        {/* <>
+      {agency && (
+        <>
           <Separator className="my-4" />
-          <CardFooter>
-            <Link href={'/'} className="text-sm underline hover:no-underline underline-offset-2">{review.companyName}</Link>
+          <CardFooter className="text-muted-foreground text-sm justify-between space-x-2">
+            <div className="flex items-center">
+              <PenTool className="mr-2" size={20} />
+              {agency}
+            </div>
+            {fullReviewLink && (
+              <Link target="_blank" href={fullReviewLink} className="underline mr-2 hover:no-underline flex items-center">
+                <span className="mr-2 uppercase">Full Review</span>
+                <ExternalLink size={18} />
+              </Link>
+            )}
           </CardFooter>
-        </> */}
-      {/* )} */}
+        </> 
+      )}
     </Card>
   )
 }

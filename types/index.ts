@@ -11,6 +11,7 @@ export type UserProps = {
   fullName: string;
   id: string;
   role: RoleTypes;
+  agency?: string;
 }
 
 export type Movie = {
@@ -53,7 +54,8 @@ export type ReviewProps = {
   text: string;
   score: number;
   createdAt: Date | null;
-  fullName: UserProps["fullName"] | null;
+  fullName: string | null;
+  fullReviewLink: string | null;
 }
 
 // {
@@ -75,6 +77,7 @@ export type ReviewParams = {
   score: number;
   role: RoleTypes;
   createdAt: Date | null;
+  fullReviewLink: string | null;
 }
 
 export type OwnScoreProps = {

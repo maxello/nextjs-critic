@@ -76,7 +76,9 @@ export async function fetchMovieReviews(movieId: string, role: RoleTypes, curren
         text: movieReviews.text,
         createdAt: movieReviews.createdAt,
         fullName: users.fullName,
-        score: movieReviews.score
+        score: movieReviews.score,
+        agency: users.agency,
+        fullReviewLink: movieReviews.fullReviewLink
       })
       .from(movieReviews)
       .leftJoin(users, eq(users.id, movieReviews.userId))
@@ -153,7 +155,8 @@ export async function fetchMovieReviewByUserId(movieId: string, userId: string) 
     role: movieReviews.role,
     score: movieReviews.score, 
     text: movieReviews.text,
-    userId: movieReviews.userId
+    userId: movieReviews.userId,
+    fullReviewLink: movieReviews.fullReviewLink
   })
   .from(movieReviews)
   .leftJoin(users, eq(movieReviews.userId, users.id))

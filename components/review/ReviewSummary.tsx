@@ -4,8 +4,7 @@ import { fetchMovieReviewByUserId, fetchMovieReviewSummary } from '@/lib/actions
 import ReviewSummaryItem from './ReviewSummaryItem';
 import { auth } from "@/auth";
 import ReviewOwnScoreItem from './ReviewOwnScore';
-import { fetchUserRoleById } from '@/lib/actions';
-import { RoleTypes } from '@/types';
+import { fetchUserById } from '@/lib/actions';
 
 const ReviewSummary = async ({
   id
@@ -19,7 +18,8 @@ const ReviewSummary = async ({
   ];
   const userId = session?.user?.id;
   const ownReview = userId ? await fetchMovieReviewByUserId(id, userId) : null;
-  const userRole: RoleTypes | null = userId ? await fetchUserRoleById(userId) : null;
+  const user = userId ? await fetchUserById(userId) : null;
+  const userRole = user?.role;
   const [criticSummary, userSummary] = await Promise.all(promises);
   return (
     <>

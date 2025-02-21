@@ -10,7 +10,8 @@ import {
 // import Breadcrumbs from "@/components/Breadcrumbs";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { isAdminRole } from "@/lib/actions/auth";
+// import { isAdminRole } from "@/lib/actions/auth";
+import { fetchUserById } from "@/lib/actions";
 
 export default async function AdminLayout({ 
   children,
@@ -21,9 +22,9 @@ export default async function AdminLayout({
 
   if (!session?.user?.id) redirect("/sign-in");
 
-  const isAdmin = await isAdminRole(session.user.id);
+  const user = await fetchUserById(session.user.id);
 
-  if (!isAdmin) redirect("/");
+  if (user?.role !== 'ADMIN') redirect("/");
 
   return (
     <SidebarProvider>

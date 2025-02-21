@@ -15,12 +15,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { usePathname } from 'next/navigation'
-import { reviewSchema } from "@/lib/validations";
+import { baseReviewSchema, criticReviewSchema } from "@/lib/validations";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { createReview, updateReview } from "@/lib/actions/movie";
 import { toast } from "@/hooks/use-toast";
 import ReviewScore from "./ReviewScore";
+import { Input } from "../ui/input";
 
 type TypeProp = "create" | "update";
 
@@ -39,18 +40,27 @@ const ReviewForm = ({
   userId: string | undefined, 
   userRole: RoleTypes | undefined
 }) => {
+  const isCritic = userRole === 'CRITIC';
+  const baseDefaultValues = {
+    text: review?.text || "",
+    score: review?.score ?? 5
+  };
+
+  const reviewSchema = isCritic ? criticReviewSchema : baseReviewSchema;
+  const defaultValues = isCritic ? {
+    ...baseDefaultValues,
+    fullReviewLink: review?.fullReviewLink || ""
+  } : baseDefaultValues;
+
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
-    defaultValues: {
-      text: review?.text || "",
-      score: review?.score ?? 5
-    }
+    defaultValues
   });
   
   const pathname = usePathname();
 
   const onSubmit = async (values: z.infer<typeof reviewSchema>) => {
-    if (type === 'update' && review?.id) {
+    if (type === "update" && review?.id) {
       const result = await updateReview(values, review?.id, pathname);
       if (result.success) {
         toast({
@@ -66,7 +76,7 @@ const ReviewForm = ({
           variant: "destructive",
         });
       }
-    } else if (type === 'create') {
+    } else if (type === "create") {
       if (!(userId && userRole)) {
         return;
       }
@@ -75,6 +85,7 @@ const ReviewForm = ({
         toast({
           title: "Success",
           description: "Review created successfully",
+          variant: "success"
         });
         toggleDialog();
       } else {
@@ -125,6 +136,27 @@ const ReviewForm = ({
             </FormItem>
           )}
         />
+
+        {isCritic && (
+          <FormField
+            control={form.control}
+            name={"fullReviewLink"}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-sm font-normal">
+                  Full Review Link
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Link to Full Review"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
 
         <Button type="submit" disabled={!form.formState.isDirty || form.formState.isLoading}>
           {type === 'create' ? "Add" : "Edit"} Review

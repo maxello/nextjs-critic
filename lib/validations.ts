@@ -25,7 +25,45 @@ export const movieSchema = z.object({
   releaseYear: z.coerce.number().int().gte(1895).lte(2025) // change it to dynamic
 });
 
-export const reviewSchema = z.object({
+export const baseReviewSchema = z.object({
   text: z.string().trim().min(10).max(5000),
   score: z.coerce.number().int().gte(0).lte(10)
 });
+
+export const criticReviewSchema = z.intersection(baseReviewSchema, z.object({
+  fullReviewLink: z.string().url(),
+}));
+
+export const baseProfileSchema = z.object({
+  fullName: z.string().min(3)
+});
+
+export const criticProfileSchema = z.intersection(baseProfileSchema, z.object({
+  agency: z.string().min(3)
+}));
+
+// export const profileUserSchema = z.object({
+//   fullName: z.string().min(3)
+// });
+
+// export const profileBaseSchema = z.object({
+//   fullName: z.string().min(3)
+// });
+
+// export const profileSchema = z.discriminatedUnion(
+//     'role',
+//     [
+//       z.object({
+//         role: z.literal("USER")
+//       }).merge(profileBaseSchema),
+//       z.object({
+//         role: z.literal("CRITIC"),
+//         agency: z.string().min(3)
+//       }).merge(profileBaseSchema),
+//     ],
+//   );
+
+// export const profileCriticSchema = z.object({
+//   fullName: z.string().min(3),
+//   agency: z.string().min(3)
+// });
