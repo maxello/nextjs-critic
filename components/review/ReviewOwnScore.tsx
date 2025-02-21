@@ -14,6 +14,7 @@ const ReviewOwnScoreItem = ({
   score: number | undefined,
   title?: string
 }) => {
+  if (role === 'ADMIN') return; 
   const link = role ? (
     <Link 
       href={role === 'CRITIC' ? `/movies/${movieId}/critic-reviews` : `/movies/${movieId}/user-reviews`} 
