@@ -54,7 +54,7 @@ export default async function CriticReviewsPage({
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <h2 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">Critic Reviews</h2>
         {!userId && (
-          <div className="flex items-center mb-8 space-x-3">
+          <div className="flex flex-col mb-8 items-start">
             <p className="mb-3 text-muted-foreground">To leave a review, please log in.</p>
             <Button asChild>
               <Link href={'/sign-in'}>Log in</Link>
