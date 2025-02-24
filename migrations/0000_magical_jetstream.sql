@@ -5,7 +5,6 @@ CREATE TABLE "users" (
 	"email" text NOT NULL,
 	"password" text NOT NULL,
 	"role" "role" DEFAULT 'USER',
-	"last_activity_date" date DEFAULT now(),
 	"created_at" timestamp with time zone DEFAULT now(),
 	CONSTRAINT "users_id_unique" UNIQUE("id"),
 	CONSTRAINT "users_email_unique" UNIQUE("email")

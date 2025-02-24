@@ -19,7 +19,7 @@ export default async function Header() {
     { name: 'Movies', href: '/movies' }
   ]
   if (user?.role === "ADMIN") {
-    navigation.push({ name: 'Dashboard', href: '/dashboard' });
+    navigation.push({ name: 'Dashboard', href: '/admin' });
   }
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card/60 backdrop-blur" >

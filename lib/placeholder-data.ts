@@ -52,7 +52,7 @@ const movies = [
   {
     id: "3fb3faa4-c54e-4fc6-9654-eac035e9a982",
     title: "The Substance",
-    director: "Coralie Fargeat",
+    directedBy: "Coralie Fargeat",
     thumbnail: "/public/movies/substance.webp",
     images: [],
     description: "Have you ever dreamt of a better version of yourself? You. Only better in every way. You've got to try this new product. It changed my life."
@@ -60,7 +60,7 @@ const movies = [
   {
     id: "c41d7385-aeeb-4dce-ad8e-e2ee06a78bbd",
     title: "Home Alone",
-    director: "Chris Columbus",
+    directedBy: "Chris Columbus",
     thumbnail: "/public/movies/home-alone.webp",
     images: [],
     description: "Eight-year-old Kevin McCallister has become the man of the house, overnight! Accidentally left behind when his family rushes off on a Christmas vacation, Kevin gets busy decorating the house for the holidays. But he's not decking the halls with tinsel and holly. Two bumbling burglars are trying to break in, and Kevin's rigging a bewildering battery of booby traps to welcome them!"

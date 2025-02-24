@@ -15,7 +15,7 @@ const MovieTableRow = ({item}: {item: Movie}) => {
     <TableRow key={item.id}>
       <TableCell className="font-medium">{item.title}</TableCell>
       <TableCell>{item.releaseYear}</TableCell>
-      <TableCell>{item.director}</TableCell>
+      <TableCell>{item.directedBy}</TableCell>
       <TableCell className="text-right">
         <Button asChild size="icon" variant="secondary">
           <Link href={`/admin/movies/${item.id}/edit`} aria-label="Edit">

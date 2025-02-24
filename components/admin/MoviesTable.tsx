@@ -29,7 +29,7 @@ export default async function MoviesTable({
         <TableRow>
           <TableHead>Title</TableHead>
           <TableHead>Year</TableHead>
-          <TableHead>Director</TableHead>
+          <TableHead>Directed By</TableHead>
           <TableHead className="text-right w-[60px]">Edit</TableHead>
           <TableHead className="text-right w-[60px]">Delete</TableHead>
         </TableRow>

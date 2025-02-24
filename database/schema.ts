@@ -28,7 +28,6 @@ export const users = pgTable("users", {
   // universityCard: text("university_card").notNull(),
   // status: STATUS_ENUM("status").default("PENDING"),
   role: ROLE_ENUM("role").default("USER").notNull(),
-  lastActivityDate: date("last_activity_date").defaultNow(),
   createdAt: timestamp("created_at", {
     withTimezone: true,
   }).defaultNow(),
@@ -38,7 +37,7 @@ export const users = pgTable("users", {
 export const movies = pgTable("movies", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
   title: varchar("title", { length: 255 }).notNull(),
-  director: varchar("director", { length: 255 }).notNull(),
+  directedBy: varchar("directed_by", { length: 255 }).notNull(),
   genres: text("genres").array().notNull(),
   description: text("description").notNull(),
   //rating: integer("rating").notNull(),

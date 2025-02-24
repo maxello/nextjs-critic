@@ -13,7 +13,7 @@ export default function MoviesList({
   return (
     <>
     {movies.length > 0 ? (
-      <div className="grid grid-cols-2 gap-x-2 sm:gap-x-4 lg:gap-x-6 gap-y-10 sm:grid-cols-4 md:grid-cols-5 mb-6 lg:mb-12 mx-auto md:mx-0 sm:max-w-full">
+      <div className="grid grid-cols-2 gap-x-2 sm:gap-x-4 lg:gap-x-6 gap-y-6 sm:grid-cols-4 md:grid-cols-5 mb-6 lg:mb-12 mx-auto md:mx-0 sm:max-w-full">
         {movies.map((movie) => (
           <MovieItem key={movie.id} {...movie} />
         ))}

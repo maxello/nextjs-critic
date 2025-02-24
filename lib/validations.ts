@@ -14,7 +14,7 @@ export const signInSchema = z.object({
 export const movieSchema = z.object({
   title: z.string().trim().min(2).max(100),
   description: z.string().trim().min(10).max(1000),
-  director: z.string().trim().min(2).max(100),
+  directedBy: z.string().trim().min(2).max(100),
   genres: z.array(z.string()).refine((value: string[]) => value.some((item: string) => item), {
     message: "You have to select at least one item.",
   }),

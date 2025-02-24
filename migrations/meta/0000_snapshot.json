@@ -41,13 +41,6 @@
           "notNull": false,
           "default": "'USER'"
         },
-        "last_activity_date": {
-          "name": "last_activity_date",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp with time zone",
@@ -86,7 +79,8 @@
       "schema": "public",
       "values": [
         "USER",
-        "ADMIN"
+        "ADMIN",
+        "CRITIC"
       ]
     }
   },

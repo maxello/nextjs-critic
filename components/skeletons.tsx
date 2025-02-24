@@ -15,7 +15,7 @@ export function MoviesListSkeleton({
   amount?: number
 }) {
   return (
-    <div className="grid grid-cols-2 gap-x-2 sm:gap-x-4 lg:gap-x-6 gap-y-10 sm:grid-cols-4 md:grid-cols-5 mb-6 lg:mb-12 max-w-[300px] mx-auto md:mx-0 sm:max-w-full">
+    <div className="grid grid-cols-2 gap-x-2 sm:gap-x-4 lg:gap-x-6 gap-y-6 sm:grid-cols-4 md:grid-cols-5 mb-6 lg:mb-12 mx-auto md:mx-0 sm:max-w-full">
       {Array(amount).fill(true, 0, amount).map((item, ind) => (<MovieItemSkeleton key={ind} />))}
     </div>
   )

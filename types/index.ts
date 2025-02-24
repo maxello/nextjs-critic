@@ -17,7 +17,7 @@ export type UserProps = {
 export type Movie = {
   id: string;
   title: string;
-  director: string;
+  directedBy: string;
   genres: string[];
   // rating: number;
   description: string;

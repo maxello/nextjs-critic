@@ -5,11 +5,11 @@ const MovieSummary = (
   {
     description, 
     genres, 
-    director
+    directedBy
   }: {
     description: string,
     genres: string[], 
-    director: string,
+    directedBy: string,
   }
 ) => {
   return (
@@ -26,7 +26,7 @@ const MovieSummary = (
         )}
         <p>
           <strong>Directed By: </strong>
-          {director}
+          {directedBy}
         </p>
       </div>
     </>

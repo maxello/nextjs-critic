@@ -64,7 +64,7 @@ const MovieForm = ({ type, movie }: { type: TypeProp, movie?: Movie }) => {
     defaultValues: {
       title: "",
       description: "",
-      director: "",
+      directedBy: "",
       genres: [],
       // rating: 1,
       thumbnail: "",
@@ -78,7 +78,7 @@ const MovieForm = ({ type, movie }: { type: TypeProp, movie?: Movie }) => {
     if (movie?.id) {
       form.setValue("title", movie.title);
       form.setValue("description", movie.description);
-      form.setValue("director", movie.director);
+      form.setValue("directedBy", movie.directedBy);
       form.setValue("genres", movie.genres);
       form.setValue("thumbnail", movie.thumbnail);
       form.setValue("videoUrl", movie.videoUrl);
@@ -164,16 +164,16 @@ const MovieForm = ({ type, movie }: { type: TypeProp, movie?: Movie }) => {
         />
         <FormField
           control={form.control}
-          name={"director"}
+          name={"directedBy"}
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal">
-                Director
+                Directed By
               </FormLabel>
               <FormControl>
                 <Input
                   required
-                  placeholder="Director"
+                  placeholder="Directed By"
                   {...field}
                 />
               </FormControl>
