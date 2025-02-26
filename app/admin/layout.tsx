@@ -7,10 +7,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-// import Breadcrumbs from "@/components/Breadcrumbs";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-// import { isAdminRole } from "@/lib/actions/auth";
 import { fetchUserById } from "@/lib/actions";
 
 export default async function AdminLayout({ 
@@ -19,23 +17,20 @@ export default async function AdminLayout({
   children: ReactNode,
 }) {
   const session = await auth();
-
   if (!session?.user?.id) redirect("/sign-in");
-
   const user = await fetchUserById(session.user.id);
-
   if (user?.role !== 'ADMIN') redirect("/");
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar user={user} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 sticky top-0 z-50 border-b border-border bg-background/60 backdrop-blur">
           <div className="flex w-full justify-between px-4">
             <div className="flex items-center gap-2">
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
-              {/* <Breadcrumbs /> */}
+              <div id="admin-breadcrumbs"></div>
             </div>
             <ThemesPicker />
           </div>

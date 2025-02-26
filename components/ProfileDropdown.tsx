@@ -11,15 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { RoleTypes } from '@/types';
+import { UserProps } from '@/types';
 import Link from 'next/link';
 
 export default async function ProfileDropdown({
-  name,
-  role
+  user
 }: {
-  name: string,
-  role: RoleTypes
+  user: UserProps
 }) {
   const signOutHandler = async () => {
     'use server';
@@ -35,9 +33,9 @@ export default async function ProfileDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>
-          <div className="mb-1">It&apos;s {name}</div>
+          <div className="mb-1">It&apos;s {user.fullName}</div>
           <div className="text-xs text-muted-foreground font-normal">
-            I can write reviews as a <span className="text-success">{role}</span>
+            I can write reviews as a <span className="text-success">{user.role}</span>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

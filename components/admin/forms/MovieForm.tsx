@@ -49,11 +49,11 @@ const genres = [
     id: "horror",
     label: "Horror",
   },
-] as const
-
-// interface Props extends Partial<Movie> {
-//   type?: "create" | "update";
-// }
+  {
+    id: "drama",
+    label: "Drama",
+  },
+] as const;
 
 type TypeProp = "create" | "update";
 
@@ -93,6 +93,7 @@ const MovieForm = ({ type, movie }: { type: TypeProp, movie?: Movie }) => {
         toast({
           title: "Success",
           description: "Movie updated successfully",
+          variant: "success"
         });
         router.push("/admin/movies");
       } else {
@@ -108,6 +109,7 @@ const MovieForm = ({ type, movie }: { type: TypeProp, movie?: Movie }) => {
         toast({
           title: "Success",
           description: "Movie created successfully",
+          variant: "success"
         });
         // router.push(`/admin/movies/${result.data.id}`);
         router.push("/admin/movies");
@@ -293,7 +295,7 @@ const MovieForm = ({ type, movie }: { type: TypeProp, movie?: Movie }) => {
           )}
         />
 
-        <Button type="submit">
+        <Button type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
           {type === 'create' ? "Add" : "Edit"} Movie
         </Button>
       </form>

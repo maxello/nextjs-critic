@@ -4,13 +4,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import Link from 'next/link';
 import { Movie } from '@/types/index';
-import { deleteMovie } from '@/lib/admin/actions/movie';
+// import { deleteMovie } from '@/lib/admin/actions/movie';
+import ConfirmDialog from './ConfirmDialog';
 
 const MovieTableRow = ({item}: {item: Movie}) => {
-  const deleteMovieWithId = deleteMovie.bind(null, item.id);
+  // const deleteMovieWithId = deleteMovie.bind(null, item.id);
   return (
     <TableRow key={item.id}>
       <TableCell className="font-medium">{item.title}</TableCell>
@@ -24,11 +25,12 @@ const MovieTableRow = ({item}: {item: Movie}) => {
         </Button>
       </TableCell>
       <TableCell className="text-right">
-        <form action={deleteMovieWithId}>
-          <Button size="icon" variant="destructive" aria-label="Delete">
+        {/* <form action={deleteMovieWithId}> */}
+          <ConfirmDialog itemId={item.id} />
+          {/* <Button size="icon" variant="destructive" aria-label="Delete">
             <Trash2 />
-          </Button>
-        </form>
+          </Button> */}
+        {/* </form> */}
       </TableCell>
     </TableRow>
   )

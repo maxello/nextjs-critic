@@ -35,8 +35,8 @@ export default async function Header() {
                 <DesktopNav items={navigation} />
               </div>
               <ThemesPicker />
-              {user?.role && user?.fullName ? (
-                <ProfileDropdown name={user.fullName} role={user.role} />
+              {user?.id ? (
+                <ProfileDropdown user={user} />
               ) : (
                 <Button asChild className="ml-6" variant="outline">
                   <Link href="/sign-in">Log in</Link>

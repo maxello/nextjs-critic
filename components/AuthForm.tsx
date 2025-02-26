@@ -48,13 +48,14 @@ const AuthForm = <T extends FieldValues>({
   onSubmit
 }: Props<T>) => {
   const router = useRouter();
-
   const isSignIn = type === "SIGN_IN";
 
   const form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
+
+  console.log("form.formState", form.formState)
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
     const result = await onSubmit(data);
@@ -119,7 +120,8 @@ const AuthForm = <T extends FieldValues>({
                 )}
               />
             ))}
-            <Button type="submit" className="form-btn">
+            
+            <Button type="submit" className="form-btn" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {isSignIn ? "Sign In" : "Sign Up"}
             </Button>
           </form>

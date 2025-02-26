@@ -14,45 +14,39 @@ import {
   // SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { UserProps } from "@/types";
 
 // This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+const navMain = [
+  {
+    title: "Movies",
+    url: "/admin/movies",
+    icon: Clapperboard,
+    isActive: true,
+    items: [
+      {
+        title: "View",
+        url: "/admin/movies",
+      },
+      {
+        title: "Create",
+        url: "/admin/movies/new",
+      },
+    ],
   },
-  navMain: [
-    {
-      title: "Movies",
-      url: "#",
-      icon: Clapperboard,
-      isActive: true,
-      items: [
-        {
-          title: "Table",
-          url: "/admin/movies",
-        },
-        {
-          title: "Create",
-          url: "/admin/movies/new",
-        },
-      ],
-    },
-  ],
-}
+];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { user: UserProps }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      {/* <SidebarHeader>
-      
-      </SidebarHeader> */}
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

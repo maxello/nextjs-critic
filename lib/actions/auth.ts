@@ -11,7 +11,6 @@ export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">,
 ) => {
   const { email, password } = params;
-
   try {
     const result = await signIn("credentials", {
       email,
@@ -32,7 +31,6 @@ export const signInWithCredentials = async (
 
 export const signUp = async (params: AuthCredentials) => {
   const { fullName, email, password } = params;
-
   const existingUser = await db
     .select()
     .from(users)

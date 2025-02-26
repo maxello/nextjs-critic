@@ -107,7 +107,7 @@ const ProfileForm = ({
           />
         )}
 
-        <Button type="submit" disabled={!form.formState.isDirty || form.formState.isLoading}>
+        <Button type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
           Edit profile
         </Button>
       </form>

@@ -20,15 +20,18 @@ interface Breadcrumb {
 
 export default function Breadcrumbs({
   breadcrumbs,
-}: {
-  breadcrumbs: Breadcrumb[];
-}) {
+  home,
+  ...props
+}: 
+  React.ComponentProps<"nav"> & { breadcrumbs: Breadcrumb[] } & { home?: string }
+) {
+  const homeLink = home || '/';
   return (
-    <div className="flex items-center">
+    <nav className="flex items-center" {...props}>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem className="hidden md:block">
-            <BreadcrumbLink className="text-primary" href="/">
+            <BreadcrumbLink className="text-primary" href={homeLink}>
               <House size={16} />
             </BreadcrumbLink>
           </BreadcrumbItem>
@@ -52,6 +55,6 @@ export default function Breadcrumbs({
           ))}
         </BreadcrumbList>
       </Breadcrumb>
-    </div>
+    </nav>
   );
 }

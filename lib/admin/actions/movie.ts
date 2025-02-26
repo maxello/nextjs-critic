@@ -54,7 +54,6 @@ export const updateMovie = async (params: MovieParams, id: string) => {
 export async function deleteMovie(
   id: string
 ) {
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     await db.delete(movies).where(eq(movies.id, id));
     revalidatePath('/admin/movies');

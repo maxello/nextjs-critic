@@ -158,7 +158,7 @@ const ReviewForm = ({
           />
         )}
 
-        <Button type="submit" disabled={!form.formState.isDirty || form.formState.isLoading}>
+        <Button type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
           {type === 'create' ? "Add" : "Edit"} Review
         </Button>
       </form>

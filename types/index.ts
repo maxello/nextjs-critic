@@ -11,7 +11,7 @@ export type UserProps = {
   fullName: string;
   id: string;
   role: RoleTypes;
-  agency?: string;
+  agency: string | null;
 }
 
 export type Movie = {

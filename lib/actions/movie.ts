@@ -40,7 +40,7 @@ export async function fetchFilteredMovies(
       .select()
       .from(movies)
       .where(ilike(movies.title, `%${query}%`))
-      .orderBy(desc(movies.title))
+      .orderBy(desc(movies.createdAt))
       .limit(itemsPerPage)
       .offset(offset);
     return moviesResponse;

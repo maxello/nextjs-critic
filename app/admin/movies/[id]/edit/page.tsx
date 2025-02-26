@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import { fetchMovieById } from '@/lib/actions/movie';
 import { Movie } from '@/types/index';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import Portal from '@/components/admin/Portal';
 
 const EditMoviePage = async ({
   params,
@@ -17,8 +19,20 @@ const EditMoviePage = async ({
 }) => {
   const { id } = await params;
   const movie: Movie = await fetchMovieById(id);
+  const breadcrumbs = [
+    { 
+      label: 'Movies',
+      href: '/admin/movies'
+    },
+    { 
+      label: `${movie.title}`,
+    }
+  ]
   return (
-    // <Suspense fallback={<div>Loading...</div>}>
+    <>
+      <Portal place={'admin-breadcrumbs'}>
+        <Breadcrumbs breadcrumbs={breadcrumbs} home={'/admin'} />
+      </Portal>
       <Card className="max-w-[500px] mx-auto">
         <CardHeader>
           <CardTitle className="text-xl">Edit movie</CardTitle>
@@ -28,7 +42,7 @@ const EditMoviePage = async ({
           <MovieForm type={'update'} movie={movie} />
         </CardContent>
       </Card>
-    // </Suspense>
+    </>
   )
 }
 

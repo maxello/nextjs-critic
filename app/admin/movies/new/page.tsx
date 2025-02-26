@@ -1,3 +1,4 @@
+
 import React from 'react';
 import MovieForm from '@/components/admin/forms/MovieForm';
 import {
@@ -7,10 +8,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Breadcrumbs from '@/components/Breadcrumbs';
+import Portal from '@/components/admin/Portal';
 
 const NewMoviePage = () => {
+  const breadcrumbs = [
+    { 
+      label: 'Movies',
+      href: '/admin/movies'
+    },
+    { 
+      label: 'Add movie',
+    }
+  ]
+
+  
   return (
-    <Card className="max-w-[500px] mx-auto">
+    <>
+      <Portal place={'admin-breadcrumbs'}>
+        <Breadcrumbs breadcrumbs={breadcrumbs} home={'/admin'} />
+      </Portal>
+      <Card className="max-w-[500px] mx-auto">
       <CardHeader>
         <CardTitle className="text-xl">Add movie</CardTitle>
         <CardDescription>Sub title here</CardDescription>
@@ -19,6 +37,8 @@ const NewMoviePage = () => {
         <MovieForm type={'create'} />
       </CardContent>
     </Card>
+    </>
+    
   )
 }
 

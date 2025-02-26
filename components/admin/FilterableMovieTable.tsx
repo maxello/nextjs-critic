@@ -11,17 +11,16 @@ import MoviesTable from '@/components/admin/MoviesTable';
 import Pagination from '@/components/Pagination';
 import Search from '@/components/Search';
 import { Skeleton } from "@/components/ui/skeleton";
-const FilterableMovieTable = async (props: {
-  searchParams?: Promise<{
-    query?: string;
-    page?: string;
-  }>;
+const FilterableMovieTable = async ({
+  query,
+  currentPage,
+  itemsPerPage
+} : {
+  query: string;
+  currentPage: number;
+  itemsPerPage: number;
 }) => {
-  const searchParams = await props.searchParams;
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
-  const ITEMS_PER_PAGE = 8;
-  const totalPages = await fetchMoviesPages(query, ITEMS_PER_PAGE);
+  const totalPages = await fetchMoviesPages(query, itemsPerPage);
   return (
     <Card>
       <CardHeader>
@@ -40,7 +39,7 @@ const FilterableMovieTable = async (props: {
             <Skeleton className="h-9 w-full rounded-none mb-1" />
         </div>
         }>
-          <MoviesTable query={query} currentPage={currentPage} itemsPerPage={ITEMS_PER_PAGE} />
+          <MoviesTable query={query} currentPage={currentPage} itemsPerPage={itemsPerPage} />
         </Suspense>
         <div className="mt-5 flex w-full justify-center">
           <Pagination totalPages={totalPages} />
