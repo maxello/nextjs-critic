@@ -1,14 +1,13 @@
 import ThemesPicker from './ThemesPicker';
-import Link from 'next/link';
 import ProfileDropdown from './ProfileDropdown';
 import { auth } from "@/auth";
 import { NavigationProps } from '@/types/index';
-import { Button } from "@/components/ui/button";
 import { MessageCircleMore } from "lucide-react";
 
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import { fetchUserById } from '@/lib/actions';
+import LogInButton from './LogInButton';
 
 export default async function Header() {
   const session = await auth();
@@ -38,9 +37,7 @@ export default async function Header() {
               {user?.id ? (
                 <ProfileDropdown user={user} />
               ) : (
-                <Button asChild className="ml-6" variant="outline">
-                  <Link href="/sign-in">Log in</Link>
-                </Button>
+                <LogInButton variant={'outline'} className="ml-6" />
               )}
               <MobileNav items={navigation} />
             </div>

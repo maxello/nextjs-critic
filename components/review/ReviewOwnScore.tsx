@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { RoleTypes } from '@/types/index';
 import ReviewScore from './ReviewScore';
+import LogInButton from '../LogInButton';
 const ReviewOwnScoreItem = ({
   movieId,
   role,
@@ -23,12 +24,7 @@ const ReviewOwnScoreItem = ({
       {score !== undefined ? `Go to edit as a ` : `Go to write as a `}<span className="text-success">{role}</span>
     </Link>
   ) : (
-    <Link 
-      href={'/sign-in'} 
-      className="text-sm text-muted-foreground underline hover:no-underline"
-    >
-      Log in to be able to leave reviews
-    </Link>
+    <LogInButton variant={'link'} text={'Log in to be able to leave reviews'} className="text-muted-foreground underline-offset-1 h-auto flex gap-0 font-normal p-0 underline hover:no-underline" />
   )
   return (
     <div className="flex items-center space-x-4">

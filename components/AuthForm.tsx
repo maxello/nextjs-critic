@@ -32,7 +32,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
 import { toast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -48,14 +48,14 @@ const AuthForm = <T extends FieldValues>({
   onSubmit
 }: Props<T>) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
   const isSignIn = type === "SIGN_IN";
 
   const form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
-
-  console.log("form.formState", form.formState)
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
     const result = await onSubmit(data);
@@ -69,7 +69,7 @@ const AuthForm = <T extends FieldValues>({
           : "You have successfully signed up.",
       });
 
-      router.push('/');
+      router.push(callbackUrl || '/');
     } else {
       toast({
         title: `Error ${isSignIn ? "signing in" : "signing up"}`,

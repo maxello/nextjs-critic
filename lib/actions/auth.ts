@@ -15,7 +15,7 @@ export const signInWithCredentials = async (
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: false
     });
 
     if (result?.error) {

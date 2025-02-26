@@ -9,9 +9,8 @@ import ReviewsList from '@/components/review/ReviewsList';
 import { ReviewScoreStatusProps } from '@/types';
 import { auth } from '@/auth';
 import { fetchUserById } from '@/lib/actions';
-import { Button } from "@/components/ui/button";
-import Link from 'next/link';
 import ReviewScoreStatusFilter from '@/components/review/ReviewScoreStatusFilter';
+import LogInButton from '@/components/LogInButton';
 
 export default async function CriticReviewsPage({
   params,
@@ -56,9 +55,7 @@ export default async function CriticReviewsPage({
         {!userId && (
           <div className="flex flex-col mb-8 items-start">
             <p className="mb-3 text-muted-foreground">To leave a review, please log in.</p>
-            <Button asChild>
-              <Link href={'/sign-in'}>Log in</Link>
-            </Button>
+            <LogInButton />
           </div>
         )}
         {userRole === role && (

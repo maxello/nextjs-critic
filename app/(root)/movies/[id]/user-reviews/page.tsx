@@ -9,9 +9,8 @@ import ReviewsList from '@/components/review/ReviewsList';
 import { ReviewScoreStatusProps } from '@/types';
 import { auth } from '@/auth';
 import { fetchUserById } from '@/lib/actions';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import ReviewScoreStatusFilter from '@/components/review/ReviewScoreStatusFilter';
+import LogInButton from '@/components/LogInButton';
 
 export default async function UserReviewsPage({
   params,
@@ -55,10 +54,8 @@ export default async function UserReviewsPage({
       <h2 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">User Reviews</h2>
       {!userId && (
         <div className="flex flex-col mb-8 items-start">
-          <p className="mb-3 text-muted-foreground">To leave a review, please log in.</p>
-          <Button asChild>
-            <Link href={'/sign-in'}>Log in</Link>
-          </Button>
+        <p className="mb-3 text-muted-foreground">To leave a review, please log in.</p>
+        <LogInButton />
         </div>
       )}
       {userRole === role && (
