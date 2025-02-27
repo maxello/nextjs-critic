@@ -196,7 +196,8 @@ export async function fetchMovieReviewStatistics(role: ReviewRoleProps, movieId:
 export const createReview = async (
   params: {
     text: string, 
-    score: number 
+    score: number,
+    fullReviewLink?: string
   }, 
   id: string, userId: string, 
   userRole: RoleTypes | undefined,
@@ -211,7 +212,8 @@ export const createReview = async (
           movieId: id,
           text: params.text,
           score: params.score,
-          role: userRole
+          role: userRole,
+          fullReviewLink: params.fullReviewLink
         }
       )
       // .returning();
@@ -228,7 +230,7 @@ export const createReview = async (
   }
 }
 
-export const updateReview = async (params: {text: string, score: number }, reviewId: string, pathname: string) => {
+export const updateReview = async (params: {text: string, score: number, fullReviewLink?: string }, reviewId: string, pathname: string) => {
   try {
     await db
       .update(movieReviews)

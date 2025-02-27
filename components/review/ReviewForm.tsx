@@ -60,6 +60,7 @@ const ReviewForm = ({
   const pathname = usePathname();
 
   const onSubmit = async (values: z.infer<typeof reviewSchema>) => {
+    console.log("values", values);
     if (type === "update" && review?.id) {
       const result = await updateReview(values, review?.id, pathname);
       if (result.success) {
