@@ -1,3 +1,9 @@
+import {
+  Card,
+  CardContent,
+  CardHeader
+} from "@/components/ui/card";
+
 const HomePage = async () => {
   const rolesList = [
     {
@@ -69,67 +75,85 @@ const HomePage = async () => {
   ];
   return (
     <>
-      <h1 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">Review Hub</h1>
+      <h1 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">Movie Review Hub</h1>
       <p className="mb-8">As a developer, I am excited to introduce my resume project, Movie Review Hub - a dynamic platform designed for movie enthusiasts to share their thoughts and ratings on a wide array of films. This application not only highlights my technical abilities but also reflects my dedication to developing user-friendly and engaging web experiences.</p>
       <h2 className="text-xl font-medium mb-2">Overview</h2>
       <p className="mb-8">The Movie Review Platform features a sleek and intuitive interface where users can browse a curated list of films, search for specific titles, and leave detailed reviews. With a focus on community engagement, the platform allows users to express their opinions through text reviews and ratings, promoting lively discussions about cinema.</p>
-      <h2 className="text-xl font-medium mb-2">Roles</h2>
-      <p className="mb-4">The application supports multiple user roles, each with distinct capabilities:</p>
-      <div className="mb-8">
-        {rolesList?.map((role) => (
-          <div key={role.label}
-            className="mb-4 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0 max-w-[500px]"
-          >
-            <span className="flex h-2 w-2 translate-y-1 rounded-full bg-primary" />
-            <div className="space-y-1">
-              <p className="font-medium leading-none text-primary">
-                {role.label}
-              </p>
-              <p className="text-sm">
-                {role.description}
-              </p>
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 mb-4">
+        <Card className="mb-4 lg:col-span-1">
+          <CardHeader>
+            <h2 className="text-xl font-medium">Roles</h2>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">The application supports multiple user roles, each with distinct capabilities:</p>
+            <div className="mb-8">
+              {rolesList?.map((role) => (
+                <div key={role.label}
+                  className="mb-4 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0 max-w-[500px]"
+                >
+                  <span className="flex h-2 w-2 translate-y-1 rounded-full bg-primary" />
+                  <div className="space-y-1">
+                    <p className="font-medium leading-none text-primary">
+                      {role.label}
+                    </p>
+                    <p className="text-sm">
+                      {role.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
-      </div>
-      <h2 className="text-xl font-medium mb-4">Features</h2>
-      <div className="mb-8 grid md:grid-cols-2 md:gap-x-6">
-        {featuresList?.map((feature) => (
-          <div key={feature.label}
-            className="mb-4 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0 max-w-[500px]"
-          >
-            <span className="flex h-2 w-2 translate-y-1 rounded-full bg-primary" />
-            <div className="space-y-1">
-              <p className="font-medium leading-none text-primary">
-                {feature.label}
-              </p>
-              <p className="text-sm">
-                {feature.description}
-              </p>
+          </CardContent>
+        </Card>
+        <Card className="mb-4 lg:col-span-1">
+          <CardHeader>
+            <h2 className="text-xl font-medium mb-4">Technologies Used</h2>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">This project leverages modern technologies to deliver a robust and efficient application:</p>
+            <div className="mb-8">
+              {technologiesList?.map((technology) => (
+                <div key={technology.label}
+                  className="mb-4 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0 max-w-[500px]"
+                >
+                  <span className="flex h-2 w-2 translate-y-1 rounded-full bg-primary" />
+                  <div className="space-y-1">
+                    <p className="font-medium leading-none text-primary">
+                      {technology.label}
+                    </p>
+                    <p className="text-sm">
+                      {technology.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
+          </CardContent>
+        </Card>
+        <Card className="mb-4 lg:col-span-2">
+          <CardHeader>
+            <h2 className="text-xl font-medium">Features</h2>
+          </CardHeader>
+          <CardContent className="mb-8 grid md:grid-cols-2 md:gap-x-6">
+            {featuresList?.map((feature) => (
+              <div key={feature.label}
+                className="mb-4 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0 max-w-[500px]"
+              >
+                <span className="flex h-2 w-2 translate-y-1 rounded-full bg-primary" />
+                <div className="space-y-1">
+                  <p className="font-medium leading-none text-primary">
+                    {feature.label}
+                  </p>
+                  <p className="text-sm">
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </div>
-      <h2 className="text-xl font-medium mb-4">Technologies Used</h2>
-      <p className="mb-4">This project leverages modern technologies to deliver a robust and efficient application:</p>
-      <div className="mb-8">
-        {technologiesList?.map((technology) => (
-          <div key={technology.label}
-            className="mb-4 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0 max-w-[500px]"
-          >
-            <span className="flex h-2 w-2 translate-y-1 rounded-full bg-primary" />
-            <div className="space-y-1">
-              <p className="font-medium leading-none text-primary">
-                {technology.label}
-              </p>
-              <p className="text-sm">
-                {technology.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="mb-8 font-semibold text-center md:text-left">Thank you for your attention!❤️</p>
+      <p className="mb-8 font-semibold text-center">Thank you for your attention!❤️</p>
     </>
   );
 }

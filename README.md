@@ -1,4 +1,4 @@
-[https://nextjs-critic.vercel.app](Demo and description)
+[Demo and description](https://nextjs-critic.vercel.app)
 
 ## Getting Started
 
