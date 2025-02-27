@@ -3,6 +3,7 @@ import {
   CardContent,
   CardHeader
 } from "@/components/ui/card";
+import VideoComponent from "@/components/VideoComponent";
 
 const HomePage = async () => {
   const rolesList = [
@@ -77,6 +78,9 @@ const HomePage = async () => {
     <>
       <h1 className="font-bebas-neue leading-none text-[4rem] md:text-[6rem] text-primary uppercase py-3 md:py-5">Movie Review Hub</h1>
       <p className="mb-8">As a developer, I am excited to introduce my resume project, Movie Review Hub - a dynamic platform designed for movie enthusiasts to share their thoughts and ratings on a wide array of films. This application not only highlights my technical abilities but also reflects my dedication to developing user-friendly and engaging web experiences.</p>
+      <div className="max-w-[600px] mb-8 col-span-6 w-full lg:col-span-4 aspect-video rounded-xl overflow-hidden border border-border shadow flex items-center">
+        <VideoComponent path={'/SR%20DT%2011.mp4?updatedAt=1740672504768'} />
+      </div>
       <h2 className="text-xl font-medium mb-2">Overview</h2>
       <p className="mb-8">The Movie Review Platform features a sleek and intuitive interface where users can browse a curated list of films, search for specific titles, and leave detailed reviews. With a focus on community engagement, the platform allows users to express their opinions through text reviews and ratings, promoting lively discussions about cinema.</p>
       <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 mb-4">
