@@ -85,8 +85,8 @@ const HomePage = async () => {
       </div>
       <h2 className="text-xl font-medium mb-2">Overview</h2>
       <p className="mb-8">The Movie Review Platform features a sleek and intuitive interface where users can browse a curated list of films, search for specific titles, and leave detailed reviews. With a focus on community engagement, the platform allows users to express their opinions through text reviews and ratings, promoting lively discussions about cinema.</p>
-      <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 mb-4">
-        <Card className="mb-4 lg:col-span-1">
+      <div className="grid lg:grid-cols-2 gap-4 mb-8">
+        <Card className="lg:col-span-1">
           <CardHeader>
             <h2 className="text-xl font-medium">Roles</h2>
           </CardHeader>
@@ -111,7 +111,7 @@ const HomePage = async () => {
             </div>
           </CardContent>
         </Card>
-        <Card className="mb-4 lg:col-span-1">
+        <Card className="lg:col-span-1">
           <CardHeader>
             <h2 className="text-xl font-medium mb-4">Technologies Used</h2>
           </CardHeader>
@@ -136,7 +136,7 @@ const HomePage = async () => {
             </div>
           </CardContent>
         </Card>
-        <Card className="mb-4 lg:col-span-2">
+        <Card className="lg:col-span-2">
           <CardHeader>
             <h2 className="text-xl font-medium">Features</h2>
           </CardHeader>
