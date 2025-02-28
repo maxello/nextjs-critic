@@ -4,6 +4,8 @@ import {
   CardHeader
 } from "@/components/ui/card";
 import VideoComponent from "@/components/VideoComponent";
+import Link from "next/link";
+import { Button } from '@/components/ui/button';
 
 const HomePage = async () => {
   const rolesList = [
@@ -157,7 +159,12 @@ const HomePage = async () => {
           </CardContent>
         </Card>
       </div>
-      <p className="mb-8 font-semibold text-center">Thank you for your attention!❤️</p>
+      <div className="text-center">
+        <Button asChild className="mb-8">
+          <Link href={'/movies'}>Go to Movies Page</Link>
+        </Button>
+        <p className="mb-8 font-semibold ">Thank you for your attention!❤️</p>
+      </div>
     </>
   );
 }
