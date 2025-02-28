@@ -62,7 +62,7 @@ const ReviewCard = ({
             </div>
             {fullReviewLink && (
               <Link target="_blank" href={fullReviewLink} className="underline mr-2 hover:no-underline flex items-center">
-                <span className="mr-2 uppercase">Full Review</span>
+                <span className="mr-2 uppercase whitespace-nowrap">Full Review</span>
                 <ExternalLink size={18} />
               </Link>
             )}
